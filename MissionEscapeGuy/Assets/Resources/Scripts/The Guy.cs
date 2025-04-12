@@ -8,7 +8,11 @@ public class TheGuy : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     //private Bullet bullet;
+=======
+    // private Bullet bullet;
+>>>>>>> Stashed changes
 =======
     // private Bullet bullet;
 >>>>>>> Stashed changes
