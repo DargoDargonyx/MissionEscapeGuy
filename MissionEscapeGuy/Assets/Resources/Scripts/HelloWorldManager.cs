@@ -7,6 +7,7 @@ public class HelloWorldManager : MonoBehaviour
     VisualElement rootVisualElement;
     Button hostButton;
     Button clientButton;
+    Button moveButton;
     Label statusLabel;
 
     void OnEnable()
@@ -16,15 +17,18 @@ public class HelloWorldManager : MonoBehaviour
         
         hostButton = CreateButton("HostButton", "Host");
         clientButton = CreateButton("ClientButton", "Client");
+        moveButton = CreateButton("MoveButton", "Move");
         statusLabel = CreateLabel("StatusLabel", "Not Connected");
         
         rootVisualElement.Clear();
         rootVisualElement.Add(hostButton);
         rootVisualElement.Add(clientButton);
+        rootVisualElement.Add(moveButton);
         rootVisualElement.Add(statusLabel);
         
         hostButton.clicked += OnHostButtonClicked;
         clientButton.clicked += OnClientButtonClicked;
+        moveButton.clicked += SubmitNewPosition;
     }
 
     void Update()
@@ -36,6 +40,7 @@ public class HelloWorldManager : MonoBehaviour
     {
         hostButton.clicked -= OnHostButtonClicked;
         clientButton.clicked -= OnClientButtonClicked;
+        moveButton.clicked -= SubmitNewPosition;
     }
 
     void OnHostButtonClicked() => NetworkManager.Singleton.StartHost();
@@ -71,6 +76,7 @@ public class HelloWorldManager : MonoBehaviour
         if (NetworkManager.Singleton == null)
         {
             SetStartButtons(false);
+            SetMoveButton(false);
             SetStatusText("NetworkManager not found");
             return;
         }
@@ -78,11 +84,13 @@ public class HelloWorldManager : MonoBehaviour
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
         {
             SetStartButtons(true);
+            SetMoveButton(false);
             SetStatusText("Not connected");
         }
         else
         {
             SetStartButtons(false);
+            SetMoveButton(true);
             UpdateStatusLabels();
         }
     }
@@ -91,6 +99,15 @@ public class HelloWorldManager : MonoBehaviour
     {
         hostButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
         clientButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    void SetMoveButton(bool state)
+    {
+        moveButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
+        if (state)
+        {
+            moveButton.text = NetworkManager.Singleton.IsServer ? "Move" : "Request Position Change";
+        }
     }
 
     void SetStatusText(string text) => statusLabel.text = text;
