@@ -8,6 +8,7 @@ public class WorldGenerator : MonoBehaviour
     public Tile Water;
     public Tile Grass;
     public Tile Stone;
+    public TileBase[][] tiledata;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,8 +23,8 @@ public class WorldGenerator : MonoBehaviour
                 coord.x = x - 128;
                 coord.y = y - 128;
 
-                double nx = (double) x / 255 - 0.5;
-                double ny = (double) y / 255 - 0.5;
+                double nx = (double) x / 255 + 0.5;
+                double ny = (double) y / 255 + 0.5;
 
                 double noise = PerlinNoise.Noise(nx * 20, ny * 20);
 
@@ -43,7 +44,11 @@ public class WorldGenerator : MonoBehaviour
                 {
                     tilemap.SetTile(coord, Stone);
                 }
+                
+                tiledata[x][y] = tilemap.GetTile(coord);
             }
         }
+
+        tilemap.GetComponent<TileSync>().tilegrid
     }
 }
