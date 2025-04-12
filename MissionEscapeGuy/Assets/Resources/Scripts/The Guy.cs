@@ -45,10 +45,10 @@ public class TheGuy : MonoBehaviour
     {
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
-        
-        body.linearVelocity = new Vector2(moveX, moveY) * moveSpeed;
+ 
         checkDirection();
         SubmitNewPosition();
+        moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     void FixedUpdate()
@@ -58,7 +58,11 @@ public class TheGuy : MonoBehaviour
 
     private void checkDirection()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mouseWorldPosition - (Vector2) transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void fire()
