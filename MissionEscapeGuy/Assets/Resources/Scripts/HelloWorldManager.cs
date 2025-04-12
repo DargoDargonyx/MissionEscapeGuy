@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 public class HelloWorldManager : MonoBehaviour
 {
@@ -26,11 +27,6 @@ public class HelloWorldManager : MonoBehaviour
         hostButton.clicked += OnHostButtonClicked;
         clientButton.clicked += OnClientButtonClicked;
     }
-
-    void Update()
-    {
-        UpdateUI();
-    }
     
     void OnDisable()
     {
@@ -38,9 +34,17 @@ public class HelloWorldManager : MonoBehaviour
         clientButton.clicked -= OnClientButtonClicked;
     }
 
-    void OnHostButtonClicked() => NetworkManager.Singleton.StartHost();
+    void OnHostButtonClicked() 
+    {
+        MasterController.isHost = true;
+        SceneManager.LoadSceneAsync("GameWorld");
+    }
 
-    void OnClientButtonClicked() => NetworkManager.Singleton.StartClient();
+    void OnClientButtonClicked() 
+    {
+        MasterController.isHost = false;
+        SceneManager.LoadSceneAsync("GameWorld");
+    }
 
     // Disclaimer: This is not the recommended way to create and stylize the UI elements, it is only utilized for the sake of simplicity.
     // The recommended way is to use UXML and USS. Please see this link for more information: https://docs.unity3d.com/Manual/UIE-USS.html
@@ -66,40 +70,9 @@ public class HelloWorldManager : MonoBehaviour
         return label;
     }
 
-    void UpdateUI()
-    {
-        if (NetworkManager.Singleton == null)
-        {
-            SetStartButtons(false);
-            SetStatusText("NetworkManager not found");
-            return;
-        }
-
-        if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
-        {
-            SetStartButtons(true);
-            SetStatusText("Not connected");
-        }
-        else
-        {
-            SetStartButtons(false);
-            UpdateStatusLabels();
-        }
-    }
-
     void SetStartButtons(bool state)
     {
         hostButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
         clientButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
-    }
-
-    void SetStatusText(string text) => statusLabel.text = text;
-
-    void UpdateStatusLabels()
-    {
-        var mode = NetworkManager.Singleton.IsHost ? "Host" : NetworkManager.Singleton.IsServer ? "Server" : "Client";
-        string transport = "Transport: " + NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name;
-        string modeText = "Mode: " + mode;
-        SetStatusText($"{transport}\n{modeText}");
     }
 }
