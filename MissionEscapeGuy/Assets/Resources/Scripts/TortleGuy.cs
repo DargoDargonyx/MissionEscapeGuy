@@ -8,13 +8,18 @@ public class TortleGuy : MonoBehaviour
     private Vector2 currentPosition;
     private Vector2 targetPosition;
     private Vector2 targetDirection;
+    private int health = 4;
     private float time;
     private float nextTime;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        body = body == null ? GetComponent<Rigidbody2D>() : body;
+        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+
+        currentPosition = transform.position;
+        targetPosition = new(0, 0); // World Origin, where spaceship is located
     }
 
     // Update is called once per frame
