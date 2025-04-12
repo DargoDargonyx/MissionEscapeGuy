@@ -35,7 +35,7 @@ public class TortleGuy : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        nextTime = time;
+        
         currentPosition = transform.position;
 
         closestPlayer = findNearestPlayer();
@@ -51,7 +51,7 @@ public class TortleGuy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && time >= nextTime)
+        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             time = Time.time;
             nextTime = time + 1f;
@@ -75,11 +75,6 @@ public class TortleGuy : MonoBehaviour
     private void targetPlayer(TheGuy closestPlayer)
     {
         body.linearVelocity = ((Vector2) closestPlayer.transform.position - currentPosition).normalized;
-    }
-
-    private void damagePlayer()
-    {
-
     }
 
     private TheGuy findNearestPlayer()
@@ -110,10 +105,5 @@ public class TortleGuy : MonoBehaviour
     private Vector2 getDirection()
     {
         return new Vector2();
-    }
-
-    private bool isShooting()
-    {
-        return false;
     }
 }
