@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e829b104fd7a4d5bafa4423c75e3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  DeepWater: {fileID: 11400000, guid: df3c17d431cec09628f05fbdb84100ca, type: 2}
-  Water: {fileID: 11400000, guid: 5ae32d91a9a0e19a98caf06883be99e0, type: 2}
-  Grass: {fileID: 11400000, guid: 8a31340243c4c202c96acd53bec82672, type: 2}
+  DeepWater: {fileID: 11400000, guid: cff0ddb421799a4648a87405758d7360, type: 2}
+  Water: {fileID: 11400000, guid: 6a83326d07dbea7b98384392d55f342b, type: 2}
+  Grass: {fileID: 11400000, guid: 23f768ee1024a10698caf567d58d9078, type: 2}
+  Stone: {fileID: 11400000, guid: 74b5b70b9877ea1af93133b991deb04d, type: 2}
