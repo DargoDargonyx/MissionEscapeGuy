@@ -13,6 +13,6 @@ public class HelloWorldPlayer : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void SubmitPositionRequestServerRpc(RpcParams rpcParams = default)
     {
-        transform.position;
+        transform.position = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject().GetComponent<Transform>().position;
     }
 }
