@@ -1,3 +1,5 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class TortleGuy : MonoBehaviour
@@ -22,7 +24,7 @@ public class TortleGuy : MonoBehaviour
 
         health = 4;
         currentPosition = transform.position;
-        attackRange = 15f;
+        attackRange = 5f;
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
@@ -34,6 +36,7 @@ public class TortleGuy : MonoBehaviour
     {
         time += Time.deltaTime;
         nextTime = time;
+        currentPosition = transform.position;
 
         closestPlayer = findNearestPlayer();
         if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
@@ -66,12 +69,12 @@ public class TortleGuy : MonoBehaviour
 
     private void targetPortal()
     {
-        body.linearVelocity = currentPosition.normalized;
+        body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
     }
 
     private void targetPlayer(TheGuy closestPlayer)
     {
-        body.linearVelocity = currentPosition - (Vector2) closestPlayer.transform.position;
+        body.linearVelocity = ((Vector2) closestPlayer.transform.position - currentPosition).normalized;
     }
 
     private void damagePlayer()
@@ -81,13 +84,16 @@ public class TortleGuy : MonoBehaviour
 
     private TheGuy findNearestPlayer()
     {
-        TheGuy closestPlayer = GameManager.Instance.players[0];
         float closestDistance = 999f;
+        ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
+        NetworkObject firstPlayer = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(firstID);
+        TheGuy closestPlayer = firstPlayer.GetComponent<TheGuy>();
 
         /* This loop iterates through every player in the GameManager and finds the closest. */
-        for (int i = 0; i < GameManager.Instance.players.Length; i++)
+        foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            TheGuy currentPlayer = GameManager.Instance.players[i];
+            var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
+            var currentPlayer = playerObject.GetComponent<TheGuy>();
             Vector2 PlayerPosition = currentPlayer.transform.position;
             float currentPlayerDistance = Vector2.Distance(currentPosition, PlayerPosition);
 
