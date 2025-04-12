@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Netcode;
 
 public class TheGuy : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class TheGuy : MonoBehaviour
         
         body.linearVelocity = new Vector2(moveX, moveY) * moveSpeed;
         checkDirection();
+        SubmitNewPosition();
     }
 
     void FixedUpdate()
@@ -102,5 +104,15 @@ public class TheGuy : MonoBehaviour
     public void setShield()
     {
         this.shield = shield;
+    }
+
+    void SubmitNewPosition()
+    {
+        if (NetworkManager.Singleton.IsClient)
+        {
+            var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+            var player = playerObject.GetComponent<HelloWorldPlayer>();
+            player.Move();
+        }
     }
 }
