@@ -27,22 +27,21 @@ public class WorldGenerator : MonoBehaviour
 
                 double noise = PerlinNoise.Noise(nx * 20, ny * 20);
 
-                int tile = (int) Math.Floor(noise * 4);
-
-                switch (tile) 
+                if (noise < 0.25) 
                 {
-                    case 0: 
-                        tilemap.SetTile(coord, DeepWater);
-                    break;
-                    case 1:
-                        tilemap.SetTile(coord, Water);
-                    break;
-                    case 2: 
-                        tilemap.SetTile(coord, Grass);
-                    break;
-                    case 3: 
-                        tilemap.SetTile(coord, Stone);
-                    break;
+                    tilemap.SetTile(coord, DeepWater);
+                }
+                else if (noise < 0.5) 
+                {
+                    tilemap.SetTile(coord, Water);
+                }
+                else if (noise < 0.75) 
+                {
+                    tilemap.SetTile(coord, Grass);
+                }
+                else 
+                {
+                    tilemap.SetTile(coord, Stone);
                 }
             }
         }
