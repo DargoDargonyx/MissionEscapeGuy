@@ -3,7 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public Tilemap tilemap;
     public Tile DeepWater;
     public Tile Water;
     public Tile Grass;
@@ -12,15 +11,19 @@ public class WorldGenerator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Tilemap tilemap = FindFirstObjectByType<Tilemap>();
+
         for (byte x = 0; x < 255; x++) 
         {
             for (byte y = 0; y < 255; y++)
             {
                 Vector3Int coord = new Vector3Int(x - 128, y - 128);
-                double nx = x / 255 - 0.5;
-                double ny = y / 255 - 0.5;
+                double nx = (double) x / 255 - 0.5;
+                double ny = (double) y / 255 - 0.5;
 
                 double noise = PerlinNoise.Noise(nx, ny);
+
+                Debug.Log(noise);
 
                 byte tile = (byte)((byte) noise * 4);
 

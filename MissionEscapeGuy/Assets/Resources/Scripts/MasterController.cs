@@ -6,6 +6,7 @@ public class MasterController : MonoBehaviour
 {
     public static bool isHost = false;
     bool isInitialized = false;
+    public GameObject worldGenManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +28,7 @@ public class MasterController : MonoBehaviour
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
-                    Instantiate(new GameObject("WorldgenManager"));
+                    Instantiate(worldGenManager);
                 }
                 else
                 {

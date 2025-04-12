@@ -1,10 +1,14 @@
 using System;
 
-public static class PerlinNoise
-{
-    private static int seed = new Random().Next();
-    private static readonly float[] Gradients2D =
-    {
+// Most of the code here was taken from https://github.com/Auburn/FastNoiseLite/blob/master/CSharp/FastNoiseLite.cs
+
+public static class PerlinNoise {
+    public static int seed = new Random().Next();
+
+    // Constants
+    private const int PrimeX = 501125321;
+    private const int PrimeY = 1136930381;
+    private static readonly float[] Gradients2D = {
          0.130526192220052f,  0.99144486137381f,   0.38268343236509f,   0.923879532511287f,  0.608761429008721f,  0.793353340291235f,  0.793353340291235f,  0.608761429008721f,
          0.923879532511287f,  0.38268343236509f,   0.99144486137381f,   0.130526192220051f,  0.99144486137381f,  -0.130526192220051f,  0.923879532511287f, -0.38268343236509f,
          0.793353340291235f, -0.60876142900872f,   0.608761429008721f, -0.793353340291235f,  0.38268343236509f,  -0.923879532511287f,  0.130526192220052f, -0.99144486137381f,
@@ -39,11 +43,38 @@ public static class PerlinNoise
         -0.38268343236509f,  -0.923879532511287f, -0.923879532511287f, -0.38268343236509f,  -0.923879532511287f,  0.38268343236509f,  -0.38268343236509f,   0.923879532511287f,
     };
 
-    private const int PrimeX = 501125321;
-    private const int PrimeY = 1136930381;
-
-    public static float Noise(double x, double y)
+    // Utility Methods
+    private static float Lerp(float a, float b, float t) 
     {
+        return a + t * (b - a);
+    }
+    private static float InterpQuintic(float t) 
+    {
+        return t * t * t * (t * (t * 6 - 15) + 10); 
+    }
+
+    private static float GradCoord(int seed, int xPrimed, int yPrimed, float xd, float yd) 
+    {
+        int hash = Hash(seed, xPrimed, yPrimed);
+        hash ^= hash >> 15;
+        hash &= 127 << 1;
+
+        float xg = Gradients2D[hash];
+        float yg = Gradients2D[hash | 1];
+
+        return xd * xg + yd * yg;
+    }
+
+    private static int Hash(int seed, int xPrimed, int yPrimed)
+    {
+        int hash = seed ^ xPrimed ^ yPrimed;
+
+        hash *= 0x27d4eb2d;
+        return hash;
+    }
+
+    // Noise Generation Function
+    public static double Noise(double x, double y) {
         int x0 = (int) x;
         int y0 = (int) y;
 
@@ -63,28 +94,6 @@ public static class PerlinNoise
         float xf0 = Lerp(GradCoord(seed, x0, y0, xd0, yd0), GradCoord(seed, x1, y0, xd1, yd0), xs);
         float xf1 = Lerp(GradCoord(seed, x0, y1, xd0, yd1), GradCoord(seed, x1, y1, xd1, yd1), xs);
 
-        return Lerp(xf0, xf1, ys) * 1.4247691104677813f;
+        return (Lerp(xf0, xf1, ys) * 1.4247691104677813f + 1) / 2;
     }
-    private static float InterpQuintic(float t) { return t * t * t * (t * (t * 6 - 15) + 10); }
-
-    private static int Hash(int seed, int xPrimed, int yPrimed)
-    {
-        int hash = seed ^ xPrimed ^ yPrimed;
-
-        hash *= 0x27d4eb2d;
-        return hash;
-    }
-    private static float GradCoord(int seed, int xPrimed, int yPrimed, float xd, float yd)
-    {
-        int hash = Hash(seed, xPrimed, yPrimed);
-        hash ^= hash >> 15;
-        hash &= 127 << 1;
-
-        float xg = Gradients2D[hash];
-        float yg = Gradients2D[hash | 1];
-
-        return xd * xg + yd * yg;
-    }
-
-    private static float Lerp(float a, float b, float t) { return a + t * (b - a); }
 }
