@@ -7,6 +7,10 @@ public class TheGuy : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     //private Bullet bullet;
     private Vector2 moveDirection;
     private float moveX;
@@ -31,7 +35,12 @@ public class TheGuy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        health = MAX_HEALTH;
+        shield = MAX_SHIELD;
+
+        body = body == null ? body : GetComponent<Rigidbody2D>();
+        animator = animator == null ? animator : GetComponent<Animator>();
+        spriteRenderer = spriteRenderer == null ? spriteRenderer : GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -40,14 +49,14 @@ public class TheGuy : MonoBehaviour
         
     }
 
-    void FedUpdate()
+    void FixedUpdate()
     {
-        
+        body.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
     private void checkDirection()
     {
-
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void fire()
