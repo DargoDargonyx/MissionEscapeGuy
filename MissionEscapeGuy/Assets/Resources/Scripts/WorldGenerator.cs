@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public Tilemap tileMap;
+    public Tilemap tilemap;
     public Tile DeepWater;
     public Tile Water;
     public Tile Grass;
@@ -27,16 +27,16 @@ public class WorldGenerator : MonoBehaviour
                 switch (tile) 
                 {
                     case 0: 
-                        tileMap.SetTile(coord, DeepWater);
+                        tilemap.SetTile(coord, DeepWater);
                     break;
                     case 1:
-                        tileMap.SetTile(coord, Water);
+                        tilemap.SetTile(coord, Water);
                     break;
                     case 2: 
-                        tileMap.SetTile(coord, Grass);
-                    continue;
+                        tilemap.SetTile(coord, Grass);
+                    break;
                     case 3: 
-                        //STM.SetTile(coord, ST1);
+                        //tilemap.SetTile(coord, Stone);
                     break;
                 }
             }

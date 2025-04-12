@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e829b104fd7a4d5bafa4423c75e3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GTM: {fileID: 0}
-  GT1: {fileID: 11400000, guid: df3c17d431cec09628f05fbdb84100ca, type: 2}
-  GT2: {fileID: 11400000, guid: 5ae32d91a9a0e19a98caf06883be99e0, type: 2}
-  GT3: {fileID: 11400000, guid: 8a31340243c4c202c96acd53bec82672, type: 2}
+  tilemap: {fileID: 0}
+  DeepWater: {fileID: 11400000, guid: df3c17d431cec09628f05fbdb84100ca, type: 2}
+  Water: {fileID: 11400000, guid: 5ae32d91a9a0e19a98caf06883be99e0, type: 2}
+  Grass: {fileID: 11400000, guid: 8a31340243c4c202c96acd53bec82672, type: 2}
