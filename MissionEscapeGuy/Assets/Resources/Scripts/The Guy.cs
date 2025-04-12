@@ -13,6 +13,7 @@ public class TheGuy : MonoBehaviour
     private float moveX;
     private float moveY;
     private float moveSpeed = 8;
+    private float rotationSpeed = 16;
     private bool isPurple;
     private bool isBlue;
     private bool isRed;
