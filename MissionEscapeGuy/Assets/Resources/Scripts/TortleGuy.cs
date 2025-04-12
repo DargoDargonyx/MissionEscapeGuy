@@ -36,6 +36,7 @@ public class TortleGuy : MonoBehaviour
     {
         time += Time.deltaTime;
 
+        transform.position.Set(transform.position.x, transform.position.y, 1);
         currentPosition = transform.position;
 
         closestPlayer = findNearestPlayer();
@@ -69,13 +70,20 @@ public class TortleGuy : MonoBehaviour
 
     private void targetPortal()
     {
-        body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
+        Vector2 direction = (targetPosition - currentPosition).normalized;
+        body.linearVelocity = direction * moveSpeed;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
     private void targetPlayer(TheGuy closestPlayer)
     {
-        body.linearVelocity = ((Vector2) closestPlayer.transform.position - currentPosition).normalized;
-        transform.LookAt(closestPlayer.transform);
+        Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
+        body.linearVelocity = (direction).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
     private TheGuy findNearestPlayer()
