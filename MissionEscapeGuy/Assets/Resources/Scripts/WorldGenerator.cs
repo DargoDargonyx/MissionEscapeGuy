@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,11 +10,15 @@ public class WorldGenerator : MonoBehaviour
     public Tile Grass;
     public Tile Stone;
 
+    public NetworkVariable<int> seed = new NetworkVariable<int>(new System.Random().Next());
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Tilemap tilemap = FindFirstObjectByType<Tilemap>();
         Vector3Int coord = tilemap.WorldToCell(transform.position);
+
+        PerlinNoise.seed = seed.Value;
 
         for (int x = 0; x < 255; x++) 
         {

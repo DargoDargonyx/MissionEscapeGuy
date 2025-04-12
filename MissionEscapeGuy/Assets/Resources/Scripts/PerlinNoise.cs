@@ -3,7 +3,7 @@ using System;
 // Most of the code here was taken from https://github.com/Auburn/FastNoiseLite/blob/master/CSharp/FastNoiseLite.cs
 
 public static class PerlinNoise {
-    public static int seed = new Random().Next();
+    public static int seed;
 
     // Constants
     private const int PrimeX = 501125321;
