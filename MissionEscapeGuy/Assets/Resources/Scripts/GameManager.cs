@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     {
         // Gets all the players in the game
         // Needs to be adapted to multiplayer use
-        // You got this Pierce!
-        players = players == null ? GetComponentsInChildren<TheGuy>() : players;
+        // You got this Pierce! 
+        players ??= GetComponentsInChildren<TheGuy>();
     }
 
     // Update is called once per frame

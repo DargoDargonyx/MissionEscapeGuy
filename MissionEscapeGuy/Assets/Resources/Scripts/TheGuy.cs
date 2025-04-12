@@ -85,7 +85,7 @@ public class TheGuy : NetworkBehaviour
 
     public void takeDamage(int damage)
     {
-
+        
     }
 
     public int getHealth()
@@ -93,7 +93,7 @@ public class TheGuy : NetworkBehaviour
         return health;
     }
 
-    public void setHealth(int heatlh)
+    public void setHealth(int health)
     {
         this.health = health;
     }
@@ -103,7 +103,7 @@ public class TheGuy : NetworkBehaviour
         return shield;
     }
 
-    public void setShield()
+    public void setShield(int shield)
     {
         this.shield = shield;
     }
