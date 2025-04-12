@@ -35,7 +35,7 @@ public class TortleGuy : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        
+
         currentPosition = transform.position;
 
         closestPlayer = findNearestPlayer();
@@ -75,6 +75,7 @@ public class TortleGuy : MonoBehaviour
     private void targetPlayer(TheGuy closestPlayer)
     {
         body.linearVelocity = ((Vector2) closestPlayer.transform.position - currentPosition).normalized;
+        transform.LookAt(closestPlayer.transform);
     }
 
     private TheGuy findNearestPlayer()
