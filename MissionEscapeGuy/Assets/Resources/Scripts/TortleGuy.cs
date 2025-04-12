@@ -28,7 +28,9 @@ public class TortleGuy : MonoBehaviour
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
+        
         time = Time.time;
+        nextTime = time;
     }
 
     // Update is called once per frame
