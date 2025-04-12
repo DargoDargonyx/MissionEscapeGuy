@@ -11,7 +11,7 @@ public class TheGuy : MonoBehaviour
     private Vector2 moveDirection;
     private float moveX;
     private float moveY;
-    private float moveSpeed;
+    private float moveSpeed = 8;
     private bool isPurple;
     private bool isBlue;
     private bool isRed;
@@ -42,7 +42,11 @@ public class TheGuy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveY = Input.GetAxisRaw("Vertical");
         
+        body.linearVelocity = new Vector2(moveX, moveY) * moveSpeed;
     }
 
     void FixedUpdate()
