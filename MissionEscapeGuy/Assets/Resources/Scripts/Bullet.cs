@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        bullet = bullet == null ? bullet : GetComponent<Rigidbody2D>();
+        bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
 
         initialPosition = currentPosition = bullet.transform.position;
     }
@@ -23,7 +23,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         currentPosition = bullet.transform.position;
-        
     }
 
     public void setDirection(Vector2 direction)
