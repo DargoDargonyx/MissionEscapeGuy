@@ -21,6 +21,7 @@ public class TheGuy : NetworkBehaviour
     private const int MAX_SHIELD = 10;
     private int health;
     private int shield;
+    public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite greenSprite;

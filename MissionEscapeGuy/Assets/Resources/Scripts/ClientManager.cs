@@ -12,18 +12,21 @@ public class ClientManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
-        playerScript = player.GetComponent<TheGuy>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
+        if (NetworkManager.Singleton.IsClient) 
+        {
+            player = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+            moveX = Input.GetAxisRaw("Horizontal");
+            moveY = Input.GetAxisRaw("Vertical");
 
-        checkDirection();
-        SubmitNewPosition();
+            checkDirection();
+            SubmitNewPosition();
+        }
     }
 
     private void checkDirection()
