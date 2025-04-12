@@ -431,6 +431,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClientManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6641034275526406683, guid: 78f080a6bd8e60ab9b16db9965748cc0, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

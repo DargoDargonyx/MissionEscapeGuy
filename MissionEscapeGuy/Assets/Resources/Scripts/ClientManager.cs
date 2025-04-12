@@ -4,10 +4,10 @@ using Unity.Netcode;
 public class ClientManager : MonoBehaviour
 {
     NetworkObject player;
-    TheGuy playerScript;
     private float moveX;
     private float moveY;
     Quaternion targetRotation;
+    public Camera camera;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +23,9 @@ public class ClientManager : MonoBehaviour
             player = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
             moveX = Input.GetAxisRaw("Horizontal");
             moveY = Input.GetAxisRaw("Vertical");
+
+            Vector3 newCameraPos = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
+            camera.transform.position = newCameraPos;
 
             checkDirection();
             SubmitNewPosition();
