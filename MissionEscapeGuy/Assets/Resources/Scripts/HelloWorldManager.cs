@@ -10,7 +10,6 @@ namespace HelloWorld
         VisualElement rootVisualElement;
         Button hostButton;
         Button clientButton;
-        Button serverButton;
         Button moveButton;
         Label statusLabel;
 
@@ -21,20 +20,17 @@ namespace HelloWorld
             
             hostButton = CreateButton("HostButton", "Host");
             clientButton = CreateButton("ClientButton", "Client");
-            serverButton = CreateButton("ServerButton", "Server");
             moveButton = CreateButton("MoveButton", "Move");
             statusLabel = CreateLabel("StatusLabel", "Not Connected");
             
 		    rootVisualElement.Clear();
             rootVisualElement.Add(hostButton);
             rootVisualElement.Add(clientButton);
-            rootVisualElement.Add(serverButton);
             rootVisualElement.Add(moveButton);
             rootVisualElement.Add(statusLabel);
             
             hostButton.clicked += OnHostButtonClicked;
             clientButton.clicked += OnClientButtonClicked;
-            serverButton.clicked += OnServerButtonClicked;
             moveButton.clicked += SubmitNewPosition;
         }
 
@@ -47,15 +43,12 @@ namespace HelloWorld
         {
             hostButton.clicked -= OnHostButtonClicked;
             clientButton.clicked -= OnClientButtonClicked;
-            serverButton.clicked -= OnServerButtonClicked;
             moveButton.clicked -= SubmitNewPosition;
         }
 
         void OnHostButtonClicked() => NetworkManager.Singleton.StartHost();
 
         void OnClientButtonClicked() => NetworkManager.Singleton.StartClient();
-
-        void OnServerButtonClicked() => NetworkManager.Singleton.StartServer();
 
         // Disclaimer: This is not the recommended way to create and stylize the UI elements, it is only utilized for the sake of simplicity.
         // The recommended way is to use UXML and USS. Please see this link for more information: https://docs.unity3d.com/Manual/UIE-USS.html
@@ -109,7 +102,6 @@ namespace HelloWorld
         {
             hostButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
             clientButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
-            serverButton.style.display = state ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         void SetMoveButton(bool state)
