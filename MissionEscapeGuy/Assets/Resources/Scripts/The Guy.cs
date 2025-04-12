@@ -48,6 +48,7 @@ public class TheGuy : NetworkBehaviour
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
+        checkDirection();
         SubmitNewPosition();
     }
 
@@ -80,7 +81,6 @@ public class TheGuy : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void SubmitPositionRequestServerRpc(float cX, float cY, Quaternion cRot, RpcParams rpcParams = default)
     {
-        checkDirection();
         moveDirection = new Vector2(cX, cY).normalized;
         transform.rotation = Quaternion.Slerp(transform.rotation, cRot, rotationSpeed * Time.deltaTime);
     }
