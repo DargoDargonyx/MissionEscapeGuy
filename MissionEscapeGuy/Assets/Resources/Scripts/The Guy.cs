@@ -7,7 +7,7 @@ public class TheGuy : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private Bullet bullet;
+    //private Bullet bullet;
     private Vector2 moveDirection;
     private float moveX;
     private float moveY;
