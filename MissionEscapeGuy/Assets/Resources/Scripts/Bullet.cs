@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     private Transform parentTransform;
     private Rigidbody2D bullet;
     public float bulletSpeed = 1.0f;
+    private int bulletDamage;
     private float destroyDistance;
     private Vector2 initialPosition;
     private Vector2 currentPosition;
@@ -36,5 +37,11 @@ public class Bullet : MonoBehaviour
     {
         this.direction = direction;
         bullet.linearVelocity = direction.normalized;
+    }
+
+    public void setDamage(int bulletDamage)
+    {
+        this.bulletDamage = bulletDamage;
+        destroyPosition = new Vector2(direction.x + destroyDistance, direction.y + destroyDistance);
     }
 }
