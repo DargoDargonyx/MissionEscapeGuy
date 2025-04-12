@@ -11,7 +11,7 @@ public class TheGuy : NetworkBehaviour
     //private Bullet bullet;
     private Vector2 moveDirection;
     private float moveSpeed = 8;
-    private float rotationSpeed = 16;
+    private float rotationSpeed = 128;
     private bool isPurple;
     private bool isBlue;
     private bool isRed;
@@ -85,7 +85,7 @@ public class TheGuy : NetworkBehaviour
 
     public void takeDamage(int damage)
     {
-        
+
     }
 
     public int getHealth()
