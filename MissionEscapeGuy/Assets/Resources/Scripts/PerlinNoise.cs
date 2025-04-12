@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 
-public static class PelinNoise
+public static class PerlinNoise
 {
+    private static int seed = new Random().Next();
     private static readonly float[] Gradients2D =
     {
          0.130526192220052f,  0.99144486137381f,   0.38268343236509f,   0.923879532511287f,  0.608761429008721f,  0.793353340291235f,  0.793353340291235f,  0.608761429008721f,
@@ -41,7 +42,7 @@ public static class PelinNoise
     private const int PrimeX = 501125321;
     private const int PrimeY = 1136930381;
 
-    private static float PerlinNoise(int seed, double x, double y)
+    public static float Noise(double x, double y)
     {
         int x0 = (int) x;
         int y0 = (int) y;

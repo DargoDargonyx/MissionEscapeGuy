@@ -27,6 +27,7 @@ public class MasterController : MonoBehaviour
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
+                    Instantiate(new GameObject("WorldgenManager"));
                 }
                 else
                 {
