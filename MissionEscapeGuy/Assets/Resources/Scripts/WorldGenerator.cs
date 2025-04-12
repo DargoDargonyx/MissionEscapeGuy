@@ -3,12 +3,11 @@ using UnityEngine.Tilemaps;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public Tilemap GTM;
-    //public Tilemap STM;
-    public Tile GT1;
-    public Tile GT2;
-    public Tile GT3;
-    //public Tile ST1;
+    public Tilemap tileMap;
+    public Tile DeepWater;
+    public Tile Water;
+    public Tile Grass;
+    //public Tile Stone;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,13 +27,13 @@ public class WorldGenerator : MonoBehaviour
                 switch (tile) 
                 {
                     case 0: 
-                        GTM.SetTile(coord, GT1);
+                        tileMap.SetTile(coord, DeepWater);
                     break;
                     case 1:
-                        GTM.SetTile(coord, GT2);
+                        tileMap.SetTile(coord, Water);
                     break;
                     case 2: 
-                        GTM.SetTile(coord, GT3);
+                        tileMap.SetTile(coord, Grass);
                     continue;
                     case 3: 
                         //STM.SetTile(coord, ST1);
