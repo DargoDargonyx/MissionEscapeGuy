@@ -36,9 +36,9 @@ public class TheGuy : MonoBehaviour
         health = MAX_HEALTH;
         shield = MAX_SHIELD;
 
-        body = body == null ? body : GetComponent<Rigidbody2D>();
-        animator = animator == null ? animator : GetComponent<Animator>();
-        spriteRenderer = spriteRenderer == null ? spriteRenderer : GetComponent<SpriteRenderer>();
+        body = body == null ? GetComponent<Rigidbody2D>() : body;
+        animator = animator == null ? GetComponent<Animator>() : animator;
+        spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
     }
 
     // Update is called once per frame
