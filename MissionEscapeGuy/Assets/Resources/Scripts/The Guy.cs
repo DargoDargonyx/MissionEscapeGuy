@@ -7,15 +7,7 @@ public class TheGuy : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     //private Bullet bullet;
-=======
-    // private Bullet bullet;
->>>>>>> Stashed changes
-=======
-    // private Bullet bullet;
->>>>>>> Stashed changes
     private Vector2 moveDirection;
     private float moveX;
     private float moveY;
