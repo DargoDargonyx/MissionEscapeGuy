@@ -45,6 +45,11 @@ public class TheGuy : NetworkBehaviour
         
     }
 
+    public void Move(float moveX, float moveY, Quaternion targetRotation)
+    {
+        SubmitPositionRequestServerRpc(moveX, moveY, targetRotation);
+    }
+
     [Rpc(SendTo.Server)]
     public void SubmitPositionRequestServerRpc(float cX, float cY, Quaternion cRot, RpcParams rpcParams = default)
     {

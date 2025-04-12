@@ -37,14 +37,20 @@ public class ClientManager : MonoBehaviour
 
     void SubmitNewPosition()
     {
-        if (NetworkManager.Singleton.IsClient)
+        if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
         {
-            Move();
+            foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
+                var player = playerObject.GetComponent<TheGuy>();
+                player.Move(moveX, moveY, targetRotation);
+            }
         }
-    }
-
-    public void Move()
-    {
-        playerScript.SubmitPositionRequestServerRpc(moveX, moveY, targetRotation);
+        else if (NetworkManager.Singleton.IsClient)
+        {
+            var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+            var player = playerObject.GetComponent<TheGuy>();
+            player.Move(moveX, moveY, targetRotation);
+        }
     }
 }
