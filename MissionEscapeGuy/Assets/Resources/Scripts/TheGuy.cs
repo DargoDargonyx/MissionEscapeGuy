@@ -86,6 +86,8 @@ public class TheGuy : NetworkBehaviour
 
     public void takeDamage(int damage)
     {
+        Debug.Log("Initial Health: " + getHealth());
+        Debug.Log("Initial Shield: " + getShield());
         // difference will be negative if damage is more than
         // the amount of shields the player has.
         int difference = shield - damage;
@@ -100,7 +102,8 @@ public class TheGuy : NetworkBehaviour
         {
             setShield(shield - damage);
         }
-
+        Debug.Log("New Health: " + getHealth());
+        Debug.Log("New Shield: " + getShield());
     }
 
     public int getHealth()
