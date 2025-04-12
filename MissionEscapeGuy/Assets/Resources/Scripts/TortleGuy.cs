@@ -8,9 +8,11 @@ public class TortleGuy : MonoBehaviour
     private Vector2 currentPosition;
     private Vector2 targetPosition;
     private Vector2 targetDirection;
+    private TheGuy closestPlayer;
     private int health;
     private float time;
     private float nextTime;
+    private float attackRange;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,24 +22,38 @@ public class TortleGuy : MonoBehaviour
 
         health = 4;
         currentPosition = transform.position;
+
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
+        time = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
         body.linearVelocity = targetDirection.normalized * moveSpeed;
+        time += Time.deltaTime;
+        nextTime = time;
+
+        closestPlayer = findNearestPlayer();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player") && time >= nextTime)
+        {
+            time = Time.time;
+            nextTime = time + 1f;
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        {
+            TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
+            otherObject.takeDamage(1);
+        }
     }
 
     private void targetPlayer()
@@ -50,9 +66,24 @@ public class TortleGuy : MonoBehaviour
 
     }
 
-    private Vector2? findNearestPlayer()
+    private TheGuy findNearestPlayer()
     {
-        return new Vector2();
+        TheGuy closestPlayer = GameManager.Instance.players[0];
+        float closestDistance = 999f;
+        for (int i = 0; i < GameManager.Instance.players.Length; i++)
+        {
+            TheGuy currentPlayer = GameManager.Instance.players[i];
+            Vector2 PlayerPosition = currentPlayer.transform.position;
+            float currentPlayerDistance = Vector2.Distance(currentPosition, PlayerPosition);
+
+            if (currentPlayerDistance < closestDistance)
+            {
+                closestPlayer = currentPlayer;
+                closestDistance = currentPlayerDistance;
+            }
+        }
+
+        return closestPlayer;
     }
 
     private Vector2 getDirection()
