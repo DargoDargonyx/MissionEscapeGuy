@@ -8,7 +8,6 @@ public class WorldGenerator : MonoBehaviour
     public Tile Water;
     public Tile Grass;
     public Tile Stone;
-    public TileBase[][] tiledata;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,11 +43,7 @@ public class WorldGenerator : MonoBehaviour
                 {
                     tilemap.SetTile(coord, Stone);
                 }
-                
-                tiledata[x][y] = tilemap.GetTile(coord);
             }
         }
-
-        tilemap.GetComponent<TileSync>().tilegrid
     }
 }
