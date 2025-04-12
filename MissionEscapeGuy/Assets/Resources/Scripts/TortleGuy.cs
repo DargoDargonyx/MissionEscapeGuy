@@ -22,6 +22,7 @@ public class TortleGuy : MonoBehaviour
 
         health = 4;
         currentPosition = transform.position;
+        attackRange = 15f;
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
@@ -31,11 +32,18 @@ public class TortleGuy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        body.linearVelocity = targetDirection.normalized * moveSpeed;
         time += Time.deltaTime;
         nextTime = time;
 
         closestPlayer = findNearestPlayer();
+        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
+        {
+            targetPlayer(closestPlayer);
+        }
+        else
+        {
+            targetPortal();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -56,9 +64,14 @@ public class TortleGuy : MonoBehaviour
         }
     }
 
-    private void targetPlayer()
+    private void targetPortal()
     {
+        body.linearVelocity = currentPosition.normalized;
+    }
 
+    private void targetPlayer(TheGuy closestPlayer)
+    {
+        body.linearVelocity = currentPosition - (Vector2) closestPlayer.transform.position;
     }
 
     private void damagePlayer()
@@ -70,6 +83,8 @@ public class TortleGuy : MonoBehaviour
     {
         TheGuy closestPlayer = GameManager.Instance.players[0];
         float closestDistance = 999f;
+
+        /* This loop iterates through every player in the GameManager and finds the closest. */
         for (int i = 0; i < GameManager.Instance.players.Length; i++)
         {
             TheGuy currentPlayer = GameManager.Instance.players[i];
