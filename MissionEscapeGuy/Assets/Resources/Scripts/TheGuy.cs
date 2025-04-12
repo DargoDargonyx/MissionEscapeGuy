@@ -21,6 +21,9 @@ public class TheGuy : NetworkBehaviour
     private const int MAX_SHIELD = 10;
     private int health;
     private int shield;
+    private float moveX;
+    private float moveY;
+    Quaternion targetRotation;
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite greenSprite;
@@ -42,7 +45,33 @@ public class TheGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveY = Input.GetAxisRaw("Vertical");
+
+        checkDirection();
+        SubmitNewPosition();
+    }
+
+    private void checkDirection()
+    {
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mouseWorldPosition - (Vector2) transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+    }
+
+
+    void SubmitNewPosition()
+    {
+        if (NetworkManager.Singleton.IsClient)
+        {
+            Move();
+        }
+    }
+
+    public void Move()
+    {
+        SubmitPositionRequestServerRpc(moveX, moveY, targetRotation);
     }
 
     [Rpc(SendTo.Server)]
