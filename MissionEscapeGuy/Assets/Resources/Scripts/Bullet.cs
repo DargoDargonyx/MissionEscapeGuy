@@ -15,7 +15,6 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
-
         initialPosition = currentPosition = bullet.transform.position;
     }
 
