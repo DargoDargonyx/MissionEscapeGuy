@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class TheGuy : NetworkBehaviour
 {
@@ -85,6 +86,20 @@ public class TheGuy : NetworkBehaviour
 
     public void takeDamage(int damage)
     {
+        // difference will be negative if damage is more than
+        // the amount of shields the player has.
+        int difference = shield - damage;
+
+        if (difference < 0)
+        {
+            difference *= -1;
+            setShield(0);
+            setHealth(health - difference);
+        }
+        else
+        {
+            setShield(shield - damage);
+        }
 
     }
 
@@ -95,6 +110,7 @@ public class TheGuy : NetworkBehaviour
 
     public void setHealth(int health)
     {
+        if (health < 0) return;
         this.health = health;
     }
 
@@ -105,6 +121,7 @@ public class TheGuy : NetworkBehaviour
 
     public void setShield(int shield)
     {
+        if (shield < 0) return;
         this.shield = shield;
     }
 }
