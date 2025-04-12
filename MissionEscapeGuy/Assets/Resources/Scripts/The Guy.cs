@@ -42,11 +42,11 @@ public class TheGuy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
         
         body.linearVelocity = new Vector2(moveX, moveY) * moveSpeed;
+        checkDirection();
     }
 
     void FixedUpdate()
