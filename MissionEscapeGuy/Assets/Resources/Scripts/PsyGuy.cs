@@ -53,13 +53,18 @@ public class PsyGuy : NetworkBehaviour
             if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
             {
                 targetPortal();
+                if (time >= nextTime)
+                {
+                    nextTime = time + 2f;
+                    shoot();
+                }
             }
             else
             {
                 targetPlayer(closestPlayer);
                 if (time >= nextTime)
                 {
-                    nextTime += 2f;
+                    nextTime = time + 2f;
                     shoot();
                 }
             }
@@ -79,7 +84,6 @@ public class PsyGuy : NetworkBehaviour
     private void targetPortal()
     {
         body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
-        shoot();
     }
 
     private TheGuy findClosestPlayer()
