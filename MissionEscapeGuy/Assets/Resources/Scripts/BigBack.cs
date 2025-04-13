@@ -35,6 +35,7 @@ public class BigBack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkDeath();
         time += Time.deltaTime;
 
         currentPosition = transform.position;
@@ -111,5 +112,17 @@ public class BigBack : MonoBehaviour
         }
 
         return closestPlayer;
+    }
+
+    private void checkDeath()
+    {
+        if (health <= 0)
+            Destroy(gameObject, 0.3f);
+    }
+
+
+    public void takeDamage(int damage)
+    {
+        health -= damage;
     }
 }
