@@ -5,11 +5,12 @@ using UnityEngine;
 public class Bullet : NetworkBehaviour
 {
     private Rigidbody2D bullet;
-    public float bulletSpeed = 10.0f;
+    public float bulletSpeed = 10f;
     private int bulletDamage;
     private float destroyDistance;
     private Vector2 initialPosition;
     private Vector2 currentPosition;
+    [SerializeField] private LayerMask enemyLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,6 +41,7 @@ public class Bullet : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        GameObject collisionObject = collision.gameObject;
         Destroy(gameObject, 0.3f);
     }
 }
