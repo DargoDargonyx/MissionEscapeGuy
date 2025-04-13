@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : NetworkBehaviour
 {
     private Rigidbody2D bullet;
-    public LayerMask enemyLayer;
     private SpriteRenderer spriteRenderer;
     public float bulletSpeed = 15f;
     private int bulletDamage;
@@ -51,6 +50,14 @@ public class Bullet : NetworkBehaviour
     {
         isBad = status;
         isGood = !status;
+        if (status)
+        {
+            spriteRenderer.sprite = redSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = blueSprite;
+        }
     }
 
     public void setDamage(int bulletDamage)

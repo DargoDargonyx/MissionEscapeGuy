@@ -90,7 +90,8 @@ public class TheGuy : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void fireRpc()
     {
-        Instantiate(bullet, launchOffset.position, transform.rotation);
+        Bullet clone = Instantiate(bullet, launchOffset.position, transform.rotation);
+        clone.setEnemyStatus(false);
     }
 
     [Rpc(SendTo.Server)]
