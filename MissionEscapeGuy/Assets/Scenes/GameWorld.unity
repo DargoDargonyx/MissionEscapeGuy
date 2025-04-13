@@ -810,6 +810,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: psyGuy
+      value: 
+      objectReference: {fileID: 4031704171426020440, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: turret
+      value: 
+      objectReference: {fileID: 7518467633357538362, guid: db94649abe37a8a44868055a33b021c5, type: 3}
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: turtle
+      value: 
+      objectReference: {fileID: 4414323613854955417, guid: 594b518db46337d4ea78c862683b3637, type: 3}
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: bigBack
+      value: 
+      objectReference: {fileID: 2902242006220524642, guid: c6261b426577c7b408bb686ac8be12b1, type: 3}
     - target: {fileID: 4860069430258913961, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
