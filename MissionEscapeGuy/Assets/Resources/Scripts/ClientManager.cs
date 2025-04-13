@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ClientManager : MonoBehaviour
 {
@@ -22,6 +24,14 @@ public class ClientManager : MonoBehaviour
         if (NetworkManager.Singleton.IsClient) 
         {
             player = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+
+            if (SceneManager.GetActiveScene().name == "Lobby") 
+            {
+                string user = FindAnyObjectByType<TMP_InputField>().text;
+                player.GetComponent<TheGuy>().playerCosmeticRpc(user);
+
+            }
+
             moveX = Input.GetAxisRaw("Horizontal");
             moveY = Input.GetAxisRaw("Vertical");
 
