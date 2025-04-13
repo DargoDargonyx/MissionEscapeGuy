@@ -17,7 +17,6 @@ public class PsyGuy : NetworkBehaviour
     private Vector2 currentPosition;
     private float time;
     private float nextTime;
-
     [SerializeField] private EnemyHealthBarScript healthBar;
     [SerializeField] private Transform launchOffset;
 
