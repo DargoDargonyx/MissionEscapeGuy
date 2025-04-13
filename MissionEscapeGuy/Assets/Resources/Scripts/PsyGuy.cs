@@ -9,8 +9,8 @@ public class PsyGuy : NetworkBehaviour
     private Animator animator;
     private Bullet bullet;
     private TheGuy closestPlayer;
-    private float health;
     private const float MAX_HEALTH = 6f;
+    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
     private float moveSpeed = 2f;
     private float attackRange = 10f;
     private Vector2 targetPosition = new(0, 0);
@@ -24,41 +24,47 @@ public class PsyGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // animator = animator == null ? GetComponent<Animator>() : animator;
-        body = body == null ? GetComponent<Rigidbody2D>() : body;
-        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+        if (MasterController.isHost)
+        {
+            // animator = animator == null ? GetComponent<Animator>() : animator;
+            body = body == null ? GetComponent<Rigidbody2D>() : body;
+            bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+
+            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+
+            currentPosition = transform.position;
+            time = nextTime = Time.time;
+        }
+
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
-
-        health = MAX_HEALTH;
-        healthBar.UpdateHealthBar(health, MAX_HEALTH);
-
-        currentPosition = transform.position;
-        time = nextTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkDeath();
-
-        time += Time.deltaTime;
-        currentPosition = transform.position;
-        closestPlayer = findClosestPlayer();
-
-        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
+        if (MasterController.isHost)
         {
-            targetPortal();
-        }
-        else
-        {
-            targetPlayer(closestPlayer);
-            if (time >= nextTime)
+            checkDeath();
+
+            time += Time.deltaTime;
+            currentPosition = transform.position;
+            closestPlayer = findClosestPlayer();
+
+            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
             {
-                nextTime += 2f;
-                shoot();
+                targetPortal();
+            }
+            else
+            {
+                targetPlayer(closestPlayer);
+                if (time >= nextTime)
+                {
+                    nextTime += 2f;
+                    shoot();
+                }
             }
         }
-
+        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
     }
 
     private void targetPlayer(TheGuy closestPlayer)
@@ -107,20 +113,20 @@ public class PsyGuy : NetworkBehaviour
 
     public void takeDamage(float damage)
     {
-        if (health > damage)
+        if (health.Value > damage)
         {
-            health -= damage;
-            healthBar.UpdateHealthBar(health, MAX_HEALTH);
+            health.Value -= damage;
+            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
         }
         else
         {
-            health = 0f;
+            health.Value = 0f;
         }
     }
 
     private void checkDeath()
     {
-        if (health == 0)
+        if (health.Value == 0)
         {
             healthBar.UpdateHealthBar(0.000001f, MAX_HEALTH);
             Destroy(gameObject, 0.25f);
