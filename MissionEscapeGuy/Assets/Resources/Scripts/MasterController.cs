@@ -7,7 +7,7 @@ public class MasterController : MonoBehaviour
 {
     public static bool isHost = false;
     bool isInitialized = false;
-    public GameObject turtle;
+    public TortleGuy turtle;
     public string connectTo;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
