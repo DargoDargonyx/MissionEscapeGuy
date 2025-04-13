@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     private Transform parentTransform;
     private Rigidbody2D bullet;
@@ -14,6 +15,8 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.GetComponent<NetworkObject>().Spawn();
+
         bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
         initialPosition = currentPosition = bullet.transform.position;
         destroyDistance = 50f;

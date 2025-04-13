@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class TurretScript : MonoBehaviour
+public class TurretScript : NetworkBehaviour
 {
     private Rigidbody2D body;
     private SpriteRenderer spriteRenderer;
@@ -17,6 +18,8 @@ public class TurretScript : MonoBehaviour
 
     void Start()
     {
+        gameObject.GetComponent<NetworkObject>().Spawn();
+
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
     }

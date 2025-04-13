@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class PsyGuy : MonoBehaviour
+public class PsyGuy : NetworkBehaviour
 {
     private Rigidbody2D body;
     private Animator animator;
@@ -19,6 +19,8 @@ public class PsyGuy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.GetComponent<NetworkObject>().Spawn();
+        
         // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
