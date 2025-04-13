@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BigBack : MonoBehaviour
 {
@@ -16,10 +17,14 @@ public class BigBack : MonoBehaviour
     private float attackRange;
     private int attackDamage;
 
+    [SerializeField] private EnemyHealthBarScript healthBar;
+    [SerializeField] private Scrollbar scrollBar;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = body == null ? GetComponent<Rigidbody2D>() : body;
+        healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
 
         health = MAX_HEALTH;
         currentPosition = transform.position;
@@ -92,7 +97,7 @@ public class BigBack : MonoBehaviour
 
     private TheGuy findNearestPlayer()
     {
-        float closestDistance = 999f;
+        float closestDistance = Mathf.Infinity;
         ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
         NetworkObject firstPlayer = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(firstID);
         TheGuy closestPlayer = firstPlayer.GetComponent<TheGuy>();
@@ -118,7 +123,11 @@ public class BigBack : MonoBehaviour
     private void checkDeath()
     {
         if (health <= 0)
+        {
+            scrollBar.handleRect.gameObject.SetActive(false);
             Destroy(gameObject, 0.3f);
+        }
+            
     }
 
 
@@ -127,7 +136,7 @@ public class BigBack : MonoBehaviour
         if (health > damage)
         {
             health -= damage;
-            //healthBar.UpdateHealthBar(health, MAX_HEALTH);
+            healthBar.UpdateHealthBar(health, MAX_HEALTH);
         }
         else
         {
