@@ -6,7 +6,7 @@ public class MasterController : MonoBehaviour
 {
     public static bool isHost = false;
     bool isInitialized = false;
-    public GameObject worldGenManager;
+    public GameObject turtle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +28,8 @@ public class MasterController : MonoBehaviour
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
+                    var toSpawn = Instantiate(turtle);
+                    toSpawn.GetComponent<NetworkObject>().Spawn();
                 }
                 else
                 {

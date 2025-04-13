@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class TortleGuy : MonoBehaviour
+public class TortleGuy : NetworkBehaviour
 {
     public float moveSpeed = 2;
     private Rigidbody2D body;
