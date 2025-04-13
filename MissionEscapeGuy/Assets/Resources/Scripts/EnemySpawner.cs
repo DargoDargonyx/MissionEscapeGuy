@@ -9,9 +9,9 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     
-    [SerializeField] private float minSpawnTime = 1f;
-    [SerializeField] private float maxSpawnTime = 3f;
-    [SerializeField] int maxSpawnLimit = 20;
+    [SerializeField] private float minSpawnTime = 0.5f;
+    [SerializeField] private float maxSpawnTime = 1f;
+    [SerializeField] int maxSpawnLimit = 2000;
     public GameObject turtle;
     public GameObject bigBack;
     public GameObject psyGuy;

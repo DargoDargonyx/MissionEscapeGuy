@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D bullet;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     public float bulletSpeed = 15f;
     private int bulletDamage;
     private float destroyDistance;
@@ -20,6 +21,7 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = animator == null ? GetComponent<Animator>() : animator;
         bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
 
@@ -116,7 +118,7 @@ public class Bullet : MonoBehaviour
             default:
                 break;
         }
-
+        animator.SetBool("Explode", true);
         Destroy(gameObject, 0.3f);
     }
 }
