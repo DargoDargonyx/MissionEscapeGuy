@@ -873,6 +873,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldgenManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1001379367493551625, guid: 976fb45c64d37f3b7b1ed29c6c59e8ae, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 426922256
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001379367493551625, guid: 976fb45c64d37f3b7b1ed29c6c59e8ae, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001379367493551625, guid: 976fb45c64d37f3b7b1ed29c6c59e8ae, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1788585572
+      objectReference: {fileID: 0}
     - target: {fileID: 9181243305014784704, guid: 976fb45c64d37f3b7b1ed29c6c59e8ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.4749815
