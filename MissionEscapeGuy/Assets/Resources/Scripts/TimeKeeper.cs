@@ -6,13 +6,13 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     float time;
-    TextMeshProUGUI text;
+    TextMeshPro text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        text = text == null ? GetComponent<TextMeshProUGUI>() : text;
-        time = 180;
+        time = Time.deltaTime * 180;
+        text = text == null ? GetComponent<TextMeshPro>() : text;
     }
 
     // Update is called once per frame
