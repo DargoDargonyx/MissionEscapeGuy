@@ -30,6 +30,13 @@ public class ClientManager : MonoBehaviour
 
             checkDirection();
             SubmitNewPosition();
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                var playerObject = NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject();
+                var player = playerObject.GetComponent<TheGuy>();
+                player.fireRpc();
+            }
         }
     }
 

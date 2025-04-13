@@ -47,11 +47,6 @@ public class TheGuy : NetworkBehaviour
     {
         if (health.Value == 0)
             Destroy(gameObject);
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            fire();
-        }
     }
 
     public void Move(float moveX, float moveY, Quaternion targetRotation)
@@ -77,9 +72,10 @@ public class TheGuy : NetworkBehaviour
         body.linearVelocity = new Vector2(moveDirection.x * moveSpeed * speedMod, moveDirection.y * moveSpeed * speedMod);
     }
 
-    private void fire()
+    [Rpc(SendTo.Server)]
+    public void fireRpc()
     {
-        Instantiate<Bullet>(bullet, launchOffset.position, transform.rotation);
+        Instantiate(bullet, launchOffset.position, transform.rotation);
     }
 
     private void initializeColor()
