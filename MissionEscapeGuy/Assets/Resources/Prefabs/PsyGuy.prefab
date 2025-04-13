@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 2968192488661882803}
   - component: {fileID: -6904399165003327055}
   - component: {fileID: 520599578079133659}
+  - component: {fileID: 1108149010818693741}
   m_Layer: 7
   m_Name: PsyGuy
   m_TagString: PsyGuy
@@ -544,6 +545,28 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!95 &1108149010818693741
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031704171426020440}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1b96b330c32a324396bbf10eb81b3fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4574840246896221680
 GameObject:
   m_ObjectHideFlags: 0

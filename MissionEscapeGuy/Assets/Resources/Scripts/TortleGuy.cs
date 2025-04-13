@@ -46,6 +46,7 @@ public class TortleGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkMovement();
         if (MasterController.isHost) {
             checkDeath();
 
@@ -162,7 +163,10 @@ public class TortleGuy : NetworkBehaviour
 
     private void checkMovement()
     {
-
+        if (body.linearVelocity.x > 0 || body.linearVelocity.y > 0)
+        {
+            animator.SetBool("isMoving", true);
+        }
     }
 
 }
