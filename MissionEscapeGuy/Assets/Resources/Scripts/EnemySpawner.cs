@@ -9,10 +9,13 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     
-    [SerializeField] private GameObject enemyToSpawn;
     [SerializeField] private float minSpawnTime = 2f;
     [SerializeField] private float maxSpawnTime = 5f;
     [SerializeField] int maxSpawnLimit = 20;
+    public GameObject turtle;
+    public GameObject bigBack;
+    public GameObject psyGuy;
+    public GameObject turret;
     private Tilemap tilemap;
     private BoxCollider2D collider;
     private float timeUntilSpawn;
@@ -43,13 +46,22 @@ public class EnemySpawner : MonoBehaviour
         Vector2 randomEdgePosition = getRandomEdgePosition();
         if (!pointIsRock(randomEdgePosition))
         {
+            int roll = new System.Random().Next(3);
+            GameObject enemyToSpawn;
+            switch (roll)
+            {
+                case 0: enemyToSpawn = turtle; break;
+                case 1: enemyToSpawn = bigBack; break;
+                case 2: enemyToSpawn = psyGuy; break;
+                default: enemyToSpawn = turret; break;
+            }
             Instantiate(enemyToSpawn, randomEdgePosition, Quaternion.identity);
             numEnemies += 1;
-            Debug.Log("Turtle Spawned!");
+            Debug.Log("Enemy Spawned!");
         }
         else
         {
-            Debug.Log("Turtle Not Spawned!");
+            Debug.Log("Enemy Not Spawned!");
         }
     }
 
