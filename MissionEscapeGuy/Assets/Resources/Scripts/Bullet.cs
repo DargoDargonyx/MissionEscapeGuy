@@ -42,10 +42,11 @@ public class Bullet : NetworkBehaviour
     {
         GameObject collisionObject = collision.gameObject;
 
-        //if (collisionObject.tag == "TortleGuy")
-        //{
-            //collisionObject.takeDamage();
-        //}
+        if (collisionObject.CompareTag("TortleGuy"))
+        {
+            TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
+            tortleGuy.takeDamage(2);
+        }
         Destroy(gameObject, 0.3f);
     }
 }
