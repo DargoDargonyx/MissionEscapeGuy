@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = player == null ? networkObject.GetComponent<TheGuy>() : player;
+        player = player == null ? GetComponentInParent<TheGuy>() : player;
 
         image = image == null ? GetComponent<Image>() : image;
         spriteResolver = spriteResolver == null ? GetComponent<SpriteResolver>() : spriteResolver;
