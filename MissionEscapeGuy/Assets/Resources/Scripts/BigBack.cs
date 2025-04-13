@@ -1,73 +1,72 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class PsyGuy : NetworkBehaviour
+public class BigBack : MonoBehaviour
 {
+    public float moveSpeed = 1f;
     private Rigidbody2D body;
-    private Animator animator;
-    private Bullet bullet;
+    private Vector2 currentPosition;
+    private Vector2 targetPosition;
+    private Vector2 targetDirection;
     private TheGuy closestPlayer;
     private int health;
-    private float moveSpeed = 2f;
-    private float attackRange = 10f;
-    private Vector2 targetPosition = new(0, 0);
-    private Vector2 currentPosition;
     private float time;
     private float nextTime;
-    
+    private float attackRange;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetComponent<NetworkObject>().Spawn();
-        
-        // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
-        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
 
-        health = 6;
-
+        health = 10;
         currentPosition = transform.position;
-        time = nextTime = Time.time;
+        attackRange = 10f;
+
+        targetPosition = new(0, 0); // World Origin, where spaceship is located
+        targetDirection = currentPosition - targetPosition;
+        
+        time = Time.time;
+        nextTime = time;
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        currentPosition = transform.position;
-        closestPlayer = findClosestPlayer();
 
-        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
+        currentPosition = transform.position;
+
+        closestPlayer = findNearestPlayer();
+        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
         {
-            targetPortal();
+            targetPlayer(closestPlayer);
         }
         else
         {
-            targetPlayer(closestPlayer);
-            if (time >= nextTime)
-            {
-                nextTime += 2f;
-                shoot();
-            }
+            targetPortal();
         }
     }
 
-    private void targetPlayer(TheGuy closestPlayer)
+    private void targetPortal()
     {
-        Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
-        body.linearVelocity = direction.normalized;
+        Vector2 direction = (targetPosition - currentPosition).normalized;
+        body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
-    private void targetPortal()
+    private void targetPlayer(TheGuy closestPlayer)
     {
-        body.linearVelocity = (targetPosition - currentPosition).normalized;
+        Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
+        body.linearVelocity = direction.normalized * moveSpeed;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
-    private TheGuy findClosestPlayer()
+    private TheGuy findNearestPlayer()
     {
         float closestDistance = 999f;
         ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
@@ -90,10 +89,5 @@ public class PsyGuy : NetworkBehaviour
         }
 
         return closestPlayer;
-    }
-
-    private void shoot()
-    {
-
     }
 }

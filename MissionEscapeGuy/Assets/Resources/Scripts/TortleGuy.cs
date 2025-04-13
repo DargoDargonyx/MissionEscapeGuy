@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TortleGuy : NetworkBehaviour
 {
-    public float moveSpeed = 2;
+    public float moveSpeed = 4f;
     private Rigidbody2D body;
     private Vector2 currentPosition;
     private Vector2 targetPosition;
