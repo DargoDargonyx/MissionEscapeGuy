@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 7917047704182189456}
   - component: {fileID: 5494881505172195630}
   - component: {fileID: 3206895048040754939}
+  - component: {fileID: 2824050291037072585}
   m_Layer: 3
   m_Name: EngineerGuy
   m_TagString: Player
@@ -423,11 +424,11 @@ MonoBehaviour:
         byte0060: 0
         byte0061: 0
   launchOffset: {fileID: 3705440630020355818}
-  purpleSprite: {fileID: 0}
-  blueSprite: {fileID: 0}
-  greenSprite: {fileID: 0}
-  orangeSprite: {fileID: 0}
-  blankSprite: {fileID: 0}
+  purpleSprite: {fileID: -6827585837660603668, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  blueSprite: {fileID: 4372332230537885687, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  greenSprite: {fileID: 3409710022417916962, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  orangeSprite: {fileID: -5850118368738180398, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  blankSprite: {fileID: 464264334160402357, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
 --- !u!114 &3206895048040754939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +446,28 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!95 &2824050291037072585
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071112326758638127}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e8c9508fa1f48149b764047ddb69d20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6425293844250933446
 GameObject:
   m_ObjectHideFlags: 0
