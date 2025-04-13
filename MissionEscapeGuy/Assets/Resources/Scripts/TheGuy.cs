@@ -24,6 +24,7 @@ public class TheGuy : NetworkBehaviour
     private bool isRed;
     private bool isGreen;
     private bool isOrange;
+    private float regenTimer = 10;
     private const int MAX_HEALTH = 20;
     private const int MAX_SHIELD = 10;
     private NetworkVariable<int> health = new NetworkVariable<int>(MAX_HEALTH);
@@ -50,6 +51,12 @@ public class TheGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        regenTimer -= Time.deltaTime;
+        if (regenTimer < 0)
+        {
+            setShield(Math.Clamp(getShield() + 1, -1, MAX_SHIELD));
+            regenTimer = 10;
+        }
         if (health.Value == 0)
             Destroy(gameObject);
     }
