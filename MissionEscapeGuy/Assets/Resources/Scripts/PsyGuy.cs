@@ -9,26 +9,30 @@ public class PsyGuy : MonoBehaviour
     private TheGuy closestPlayer;
     private int health;
     private float moveSpeed = 1;
-    private float attackRange = 15;
+    private float attackRange = 10;
     private Vector2 targetPosition = new(0, 0);
     private Vector2 currentPosition;
+    private float time;
+    private float nextTime;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = animator == null ? GetComponent<Animator>() : animator;
+        // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
 
         health = 6;
 
         currentPosition = transform.position;
+        time = nextTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
         currentPosition = transform.position;
         closestPlayer = findClosestPlayer();
 
@@ -39,6 +43,11 @@ public class PsyGuy : MonoBehaviour
         else
         {
             targetPlayer(closestPlayer);
+            if (time >= nextTime)
+            {
+                nextTime += 2f;
+                shoot();
+            }
         }
     }
 
@@ -53,7 +62,7 @@ public class PsyGuy : MonoBehaviour
 
     private void targetPortal()
     {
-        body.linearVelocity = currentPosition - targetPosition;
+        body.linearVelocity = (targetPosition - currentPosition).normalized;
     }
 
     private TheGuy findClosestPlayer()
@@ -79,5 +88,10 @@ public class PsyGuy : MonoBehaviour
         }
 
         return closestPlayer;
+    }
+
+    private void shoot()
+    {
+
     }
 }

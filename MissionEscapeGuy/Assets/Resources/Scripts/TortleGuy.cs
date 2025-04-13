@@ -36,7 +36,6 @@ public class TortleGuy : NetworkBehaviour
     {
         time += Time.deltaTime;
 
-        transform.position.Set(transform.position.x, transform.position.y, 1);
         currentPosition = transform.position;
 
         closestPlayer = findNearestPlayer();
@@ -72,7 +71,7 @@ public class TortleGuy : NetworkBehaviour
     private void targetPortal()
     {
         Vector2 direction = (targetPosition - currentPosition).normalized;
-        body.linearVelocity = direction * moveSpeed;
+        body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
@@ -81,7 +80,7 @@ public class TortleGuy : NetworkBehaviour
     private void targetPlayer(TheGuy closestPlayer)
     {
         Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
-        body.linearVelocity = (direction).normalized;
+        body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
