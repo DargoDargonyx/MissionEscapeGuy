@@ -81,9 +81,9 @@ public class TheGuy : NetworkBehaviour
 
     private void fire()
     {
-        Bullet clone;
-        clone = Instantiate<Bullet>(bullet, getPosition(), new Quaternion());
-        clone.setDirection(getRotation());
+        Rigidbody2D clone;
+        clone = Instantiate<Bullet>(bullet, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
+        clone.linearVelocity = getRotation().normalized * 2;
     }
 
     private void initializeColor()
