@@ -3,27 +3,23 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class TimeKeeper : MonoBehaviour
+public class TimeKeeper : NetworkBehaviour
 {
-    public static float time;
+    public float time;
     TextMeshProUGUI text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        time = 180f;
         text = text == null ? GetComponent<TextMeshProUGUI>() : text;
+        time = 180f;
     }
 
     // Update is called once per frame
     void Update()
     {
         text.SetText(Math.Ceiling(time).ToString());
-
-        if (NetworkManager.Singleton.IsHost)
-        {
-            time -= Time.deltaTime;
-        }
+        time -= Time.deltaTime;
     }
 
 }

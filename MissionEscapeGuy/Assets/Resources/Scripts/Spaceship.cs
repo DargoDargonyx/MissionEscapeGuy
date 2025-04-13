@@ -3,7 +3,7 @@ using UnityEngine;
 public class Spaceship : MonoBehaviour
 {
     private const float MAX_HEALTH = 50f;
-    private float health;
+    public float health;
 
     void Start()
     {
@@ -25,7 +25,6 @@ public class Spaceship : MonoBehaviour
         {
             health = 0f;
         }
-        Debug.Log(health);
     }
 
 }

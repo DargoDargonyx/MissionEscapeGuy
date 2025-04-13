@@ -12,6 +12,8 @@ public class Bullet : NetworkBehaviour
     private float destroyDistance;
     private Vector2 initialPosition;
     private Vector2 currentPosition;
+    private bool isGood;
+    private bool isBad;
 
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite redSprite;
@@ -45,6 +47,12 @@ public class Bullet : NetworkBehaviour
         }
     }
 
+    public void setEnemyStatus(bool status)
+    {
+        isBad = status;
+        isGood = !status;
+    }
+
     public void setDamage(int bulletDamage)
     {
         this.bulletDamage = bulletDamage;
@@ -72,24 +80,39 @@ public class Bullet : NetworkBehaviour
             switch (tag)
             {
                 case "TortleGuy":
-                    TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
-                    tortleGuy.takeDamage(2f);
+                    if (isGood)
+                    {
+                        TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
+                        tortleGuy.takeDamage(2f);
+                    }
                     break;
                 case "PsyGuy":
-                    PsyGuy psyGuy = collisionObject.GetComponent<PsyGuy>();
-                    psyGuy.takeDamage(2f);
+                    if (isGood)
+                    {
+                        PsyGuy psyGuy = collisionObject.GetComponent<PsyGuy>();
+                        psyGuy.takeDamage(2f);
+                    }
                     break;
                 case "BigBack":
-                    BigBack bigBack = collisionObject.GetComponent<BigBack>();
-                    bigBack.takeDamage(2f);
+                    if (isGood)
+                    {
+                        BigBack bigBack = collisionObject.GetComponent<BigBack>();
+                        bigBack.takeDamage(2f);
+                    }
                     break;
                 case "Player":
-                    TheGuy player = collisionObject.GetComponent<TheGuy>();
-                    player.takeDamage(2);
+                    if (isBad)
+                    {
+                        TheGuy player = collisionObject.GetComponent<TheGuy>();
+                        player.takeDamage(2);
+                    }
                     break;
                 case "Spaceship":
-                    Spaceship spaceship = collisionObject.GetComponent<Spaceship>();
-                    spaceship.takeDamage(2f);
+                    if (isBad)
+                    {
+                        Spaceship spaceship = collisionObject.GetComponent<Spaceship>();
+                        spaceship.takeDamage(2f);
+                    }
                     break;
                 default:
                     break;
