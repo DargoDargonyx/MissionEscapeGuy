@@ -1,5 +1,7 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class PsyGuy : NetworkBehaviour
 {
@@ -40,7 +42,7 @@ public class PsyGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //checkDeath();
+        checkDeath();
 
         time += Time.deltaTime;
         currentPosition = transform.position;
@@ -103,7 +105,7 @@ public class PsyGuy : NetworkBehaviour
 
     private void shoot()
     {
-        Instantiate<Bullet>(bullet, launchOffset.position, transform.rotation);
+        Instantiate(bullet, launchOffset.position, transform.rotation);
     }
 
     public void takeDamage(float damage)
@@ -124,6 +126,7 @@ public class PsyGuy : NetworkBehaviour
         if (health == 0)
         {
             Destroy(gameObject, 0.25f);
+            healthBar.UpdateHealthBar(0.000001f, MAX_HEALTH);
         }
     }
 

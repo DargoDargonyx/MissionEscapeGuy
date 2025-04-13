@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -20,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        maxSpawnLimit = 20;
         collider = collider == null ? GetComponent<BoxCollider2D>() : collider;
         setTimeUntilSpawn();
         tilemap = FindFirstObjectByType<Tilemap>();
