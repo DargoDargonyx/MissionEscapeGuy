@@ -12,7 +12,7 @@ public class Spaceship : MonoBehaviour
 
     void Update()
     {
-        
+        playerData.spaceShipHealth = health;
     }
 
     public void takeDamage(float damage)
