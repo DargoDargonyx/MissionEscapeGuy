@@ -78,8 +78,11 @@ public class PsyGuy : MonoBehaviour
 
     private void targetPortal()
     {
-        body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
-        transform.LookAt(targetPosition);
+        Vector2 direction = (targetPosition - currentPosition).normalized;
+        body.linearVelocity = direction.normalized * moveSpeed;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
     private TheGuy findClosestPlayer()
