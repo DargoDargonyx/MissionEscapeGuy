@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class WorldGenerator : MonoBehaviour
+public class WorldGenerator : NetworkBehaviour
 {
     public Tile DeepWater;
     public Tile Water;
