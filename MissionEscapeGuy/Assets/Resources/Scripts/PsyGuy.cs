@@ -19,14 +19,12 @@ public class PsyGuy : NetworkBehaviour
     private float nextTime;
 
     [SerializeField] private EnemyHealthBarScript healthBar;
-    [SerializeField] private Transform launchOffset;
+    [SerializeField] private Vector2 launchOffset = Vector2.zero;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetComponent<NetworkObject>().Spawn();
-        
         // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
@@ -67,7 +65,7 @@ public class PsyGuy : NetworkBehaviour
     private void targetPlayer(TheGuy closestPlayer)
     {
         Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
-        body.linearVelocity = direction.normalized;
+        body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
@@ -75,7 +73,7 @@ public class PsyGuy : NetworkBehaviour
 
     private void targetPortal()
     {
-        body.linearVelocity = (targetPosition - currentPosition).normalized;
+        body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
     }
 
     private TheGuy findClosestPlayer()
@@ -105,7 +103,7 @@ public class PsyGuy : NetworkBehaviour
 
     private void shoot()
     {
-        Instantiate(bullet, launchOffset.position, transform.rotation);
+        Instantiate(bullet, transform.position, transform.rotation);
     }
 
     public void takeDamage(float damage)
@@ -125,9 +123,8 @@ public class PsyGuy : NetworkBehaviour
     {
         if (health == 0)
         {
-            Destroy(gameObject, 0.25f);
             healthBar.UpdateHealthBar(0.000001f, MAX_HEALTH);
+            Destroy(gameObject, 0.25f);
         }
     }
-
 }

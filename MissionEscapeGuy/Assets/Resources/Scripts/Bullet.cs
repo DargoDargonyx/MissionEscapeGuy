@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : NetworkBehaviour
 {
     private Rigidbody2D bullet;
+    public LayerMask enemyLayer;
     private SpriteRenderer spriteRenderer;
     public float bulletSpeed = 10f;
     private int bulletDamage;
@@ -67,7 +68,7 @@ public class Bullet : NetworkBehaviour
         {
             GameObject collisionObject = collision.gameObject;
             string tag = collisionObject.tag;
-
+            
             switch (tag)
             {
                 case "TortleGuy":

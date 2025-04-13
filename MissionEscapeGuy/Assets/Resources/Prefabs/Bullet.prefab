@@ -158,6 +158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
   bulletSpeed: 10
   blueSprite: {fileID: 874343242196921964, guid: ddbedb516c5c19d42a341fc135e46021, type: 3}
   redSprite: {fileID: -982256790, guid: ddbedb516c5c19d42a341fc135e46021, type: 3}

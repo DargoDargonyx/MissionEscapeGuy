@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6542813347283333723}
   - component: {fileID: 8774632013776877811}
   - component: {fileID: 1347909641171816735}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: healthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 3515448710578308584}
   - component: {fileID: 3267234923373991329}
   - component: {fileID: 6217332830868027168}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 289154204627636004}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 2968192488661882803}
   - component: {fileID: -6904399165003327055}
   - component: {fileID: 520599578079133659}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PsyGuy
   m_TagString: PsyGuy
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   healthBar: {fileID: 1347909641171816735}
-  launchOffset: {fileID: 0}
+  launchOffset: {x: 0, y: 0}
 --- !u!114 &-6904399165003327055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 4091786120785112184}
   - component: {fileID: 7348580883918349119}
   - component: {fileID: 6490866595297620241}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
