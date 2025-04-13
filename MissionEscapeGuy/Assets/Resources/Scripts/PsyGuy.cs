@@ -1,7 +1,4 @@
-using System;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class PsyGuy : MonoBehaviour
 {

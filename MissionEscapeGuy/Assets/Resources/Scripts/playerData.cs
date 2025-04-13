@@ -1,7 +1,3 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 public class playerData
 {
     public static float spaceShipHealth;

@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 public class HelloWorldManager : MonoBehaviour
 {
 

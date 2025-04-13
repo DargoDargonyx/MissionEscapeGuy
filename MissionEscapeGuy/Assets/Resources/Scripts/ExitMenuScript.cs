@@ -1,9 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using System.Collections;
-using System;
 
 public class ExitMenuScript : MonoBehaviour
 {

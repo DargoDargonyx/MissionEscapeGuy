@@ -1,15 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using Unity.Netcode;
 using System;
 using UnityEngine.Tilemaps;
-using UnityEditor.U2D;
 using UnityEngine.SceneManagement;
-using TMPro;
-using UnityEngine.UI;
-using Unity.Collections;
-using System;
-using System.Collections;
 
 public class TheGuy : MonoBehaviour
 {

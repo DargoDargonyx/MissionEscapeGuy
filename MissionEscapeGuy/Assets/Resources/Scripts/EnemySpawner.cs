@@ -1,7 +1,3 @@
-using System;
-using Unity.Netcode;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
