@@ -45,6 +45,7 @@ public class TheGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         animator = animator == null ? GetComponent<Animator>() : animator;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
