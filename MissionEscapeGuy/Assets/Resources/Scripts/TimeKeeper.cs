@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -19,5 +20,9 @@ public class Timer : MonoBehaviour
     {
         text.SetText(Math.Ceiling(time).ToString());
         time -= Time.deltaTime;
+        if (time <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
