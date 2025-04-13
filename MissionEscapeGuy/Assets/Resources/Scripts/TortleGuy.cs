@@ -69,7 +69,7 @@ public class TortleGuy : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             time = Time.time;
             nextTime = time + 1f;
@@ -78,14 +78,14 @@ public class TortleGuy : NetworkBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        animator.SetBool("isAttacking", true);
-        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
+        animator.SetBool("isAttacking", false);
+        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
+        animator.SetBool("isAttacking", true);
             nextTime += 1f;
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             otherObject.takeDamage(1);
         }
-        animator.SetBool("isAttacking", false);
     }
 
     private void targetPortal()

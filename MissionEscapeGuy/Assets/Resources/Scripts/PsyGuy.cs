@@ -79,6 +79,7 @@ public class PsyGuy : NetworkBehaviour
     private void targetPortal()
     {
         body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
+        shoot();
     }
 
     private TheGuy findClosestPlayer()

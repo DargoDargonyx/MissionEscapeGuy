@@ -69,7 +69,7 @@ public class BigBack : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             time = nextTime;
             nextTime += 2f;
@@ -78,7 +78,7 @@ public class BigBack : NetworkBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             time = nextTime;
