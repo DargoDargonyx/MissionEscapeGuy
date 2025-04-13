@@ -24,19 +24,27 @@ public class WorldGenerator : MonoBehaviour
         {
             for (int y = 0; y < 255; y++)
             {
-                coord.x = x - 128;
-                coord.y = y - 128;
+                int tx = x - 128;
+                int ty = y - 128;
+                coord.x = tx;
+                coord.y = ty;
 
                 double nx = (double) x / 255 + 0.5;
                 double ny = (double) y / 255 + 0.5;
 
                 double noise = (PerlinNoise.Noise(nx * 10, ny * 10) + 0.25 * PerlinNoise.Noise(nx * 80, ny * 80)) / 1.25;
 
-                // Map control zones
-                double dist = Math.Sqrt(Math.Pow(nx, 2) + Math.Pow(ny, 2));
+                // Spawn area
+                double dist = Math.Sqrt(Math.Pow(tx, 2) + Math.Pow(ty, 2));
                 double diff = noise - 0.5;
                 double adj = diff / (dist + 1);
                 noise -= adj;
+
+                // Edge of map
+                // Rock wall
+                double edgeDist = 128 - Math.Max(Math.Abs(tx), Math.Abs(ty));
+                noise += 10 / Math.Pow(edgeDist, 2) * 5;
+
 
                 if (noise < 0.2) 
                 {
