@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 1428471681}
   - component: {fileID: 1428471683}
   - component: {fileID: 1428471682}
+  - component: {fileID: 1428471684}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -788,6 +789,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428471680}
   m_CullTransparentMesh: 1
+--- !u!114 &1428471684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428471680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048fab613a43adb4d9f742270d9f152e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1643973859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -856,6 +869,7 @@ GameObject:
   - component: {fileID: 1670794103}
   - component: {fileID: 1670794105}
   - component: {fileID: 1670794104}
+  - component: {fileID: 1670794106}
   m_Layer: 5
   m_Name: ShieldBar
   m_TagString: Untagged
@@ -920,6 +934,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670794102}
   m_CullTransparentMesh: 1
+--- !u!114 &1670794106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670794102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc37dede0452bb74195c59c99a051122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1862754546
 GameObject:
   m_ObjectHideFlags: 0
