@@ -30,17 +30,17 @@ public class WorldGenerator : MonoBehaviour
                 double nx = (double) x / 255 + 0.5;
                 double ny = (double) y / 255 + 0.5;
 
-                double noise = PerlinNoise.Noise(nx * 20, ny * 20);
+                double noise = PerlinNoise.Noise(nx * 10, ny * 10);
 
-                if (noise < 0.25) 
+                if (noise < 0.2) 
                 {
                     tilemap.SetTile(coord, DeepWater);
                 }
-                else if (noise < 0.5) 
+                else if (noise < 0.4) 
                 {
                     tilemap.SetTile(coord, Water);
                 }
-                else if (noise < 0.75) 
+                else if (noise < 0.8) 
                 {
                     tilemap.SetTile(coord, Grass);
                 }
