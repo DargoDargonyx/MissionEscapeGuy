@@ -130,6 +130,7 @@ public class TortleGuy : NetworkBehaviour
         {
             health = 0;
         }
+        Debug.Log(health);
     }
 
     private void checkDeath()

@@ -11,7 +11,7 @@ public class ShieldManager : MonoBehaviour
     private TheGuy player;
     void Start()
     {
-        player = player == null ? networkObject.GetComponent<TheGuy>() : player;
+        player = player == null ? GetComponentInParent<TheGuy>() : player;
 
         image = image == null ? GetComponent<Image>() : image;
         spriteResolver = spriteResolver == null ? GetComponent<SpriteResolver>() : spriteResolver;
