@@ -122,7 +122,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7099250023163580761}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -285,7 +285,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   healthBar: {fileID: 3841645447248660879}
-  scrollBar: {fileID: 0}
+  scrollBar: {fileID: 6143127087825242529}
 --- !u!114 &7732696084836669044
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TortleGuy : NetworkBehaviour
 {
@@ -17,7 +18,8 @@ public class TortleGuy : NetworkBehaviour
     private float attackRange = 10f;
 
     [SerializeField] EnemyHealthBarScript healthBar;
-    
+    [SerializeField] private Scrollbar scrollBar;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -149,6 +151,7 @@ public class TortleGuy : NetworkBehaviour
     {
         if (health.Value == 0)
         {
+            scrollBar.handleRect.gameObject.SetActive(false);
             Destroy(gameObject, 0.25f);
         }
     }

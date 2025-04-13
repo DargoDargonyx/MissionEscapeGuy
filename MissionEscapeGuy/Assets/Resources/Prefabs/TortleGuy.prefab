@@ -217,6 +217,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 2
   healthBar: {fileID: 3557888935311864857}
+  scrollBar: {fileID: 1085304529897484941}
 --- !u!114 &-1482710630683092937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4641509, g: 0.31089354, b: 0.31089354, a: 1}
+  m_Color: {r: 0.4641509, g: 0.20392157, b: 0.20392157, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

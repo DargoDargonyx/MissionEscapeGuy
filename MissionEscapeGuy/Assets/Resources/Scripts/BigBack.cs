@@ -125,7 +125,7 @@ public class BigBack : MonoBehaviour
         if (health <= 0)
         {
             scrollBar.handleRect.gameObject.SetActive(false);
-            Destroy(gameObject, 0.3f);
+            Destroy(gameObject, 0.25f);
         }
             
     }
