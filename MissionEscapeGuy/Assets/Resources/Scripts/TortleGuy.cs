@@ -6,7 +6,6 @@ public class TortleGuy : NetworkBehaviour
 {
     public float moveSpeed = 2;
     private Rigidbody2D body;
-    private Bullet bullet;
     private Vector2 currentPosition;
     private Vector2 targetPosition;
     private Vector2 targetDirection;
@@ -20,7 +19,6 @@ public class TortleGuy : NetworkBehaviour
     void Start()
     {
         body = body == null ? GetComponent<Rigidbody2D>() : body;
-        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
 
         health = 4;
         currentPosition = transform.position;
