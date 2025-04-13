@@ -10,10 +10,13 @@ public class TortleGuy : NetworkBehaviour
     private Vector2 targetPosition;
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
-    private int health;
+    private float health;
+    private const float MAX_HEALTH = 4f; 
     private float time;
     private float nextTime;
-    private float attackRange;
+    private float attackRange = 10f;
+
+    [SerializeField] EnemyHealthBarScript healthBar;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,10 +24,11 @@ public class TortleGuy : NetworkBehaviour
         gameObject.GetComponent<NetworkObject>().Spawn();
 
         body = body == null ? GetComponent<Rigidbody2D>() : body;
+        healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
 
-        health = 4;
+        health = MAX_HEALTH;
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
         currentPosition = transform.position;
-        attackRange = 10f;
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
@@ -120,11 +124,12 @@ public class TortleGuy : NetworkBehaviour
         return new Vector2();
     }
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
         if (health > damage)
         {
             health -= damage;
+            healthBar.UpdateHealthBar(health, MAX_HEALTH);
         }
         else
         {
@@ -137,7 +142,7 @@ public class TortleGuy : NetworkBehaviour
     {
         if (health == 0)
         {
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.25f);
         }
     }
 

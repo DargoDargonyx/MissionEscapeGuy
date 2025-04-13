@@ -242,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 2
+  healthBar: {fileID: 0}
 --- !u!114 &-1482710630683092937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,8 +539,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.73}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: 0, y: 0.8}
+  m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3648496100425602441
 CanvasRenderer:
@@ -623,7 +624,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9030825049621298617}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -640,3 +641,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81240766c254dea4dba684dae512e4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 9090706722578980116}
+  offset: {x: 0, y: 0.8, z: 0}
