@@ -26,7 +26,7 @@ public class HelloWorldManager : MonoBehaviour
 
     private void loadGameWorld()
     {
-        SceneManager.LoadSceneAsync("Lobby");
+        SceneManager.LoadSceneAsync("GameWorld");
     }
 
 }
