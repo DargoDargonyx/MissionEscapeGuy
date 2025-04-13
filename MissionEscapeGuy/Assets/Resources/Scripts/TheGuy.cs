@@ -2,6 +2,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using UnityEngine.Tilemaps;
+using UnityEditor.U2D;
 
 public class TheGuy : NetworkBehaviour
 {
@@ -61,7 +63,13 @@ public class TheGuy : NetworkBehaviour
 
     void FixedUpdate()
     {
-        body.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        Tilemap tilemap = FindFirstObjectByType<Tilemap>();
+        Tile tile = tilemap.GetTile<Tile>(tilemap.WorldToCell(transform.position));
+        float speedMod = 1;
+        if (tile.name != "Tiles_0") {
+            speedMod = tile.name == "Tiles_1" ? 0.5f : 0.25f;
+        }
+        body.linearVelocity = new Vector2(moveDirection.x * moveSpeed * speedMod, moveDirection.y * moveSpeed * speedMod);
     }
 
     private void fire()
