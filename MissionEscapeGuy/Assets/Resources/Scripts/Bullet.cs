@@ -87,6 +87,10 @@ public class Bullet : NetworkBehaviour
                     TheGuy player = collisionObject.GetComponent<TheGuy>();
                     player.takeDamage(2);
                     break;
+                case "Spaceship":
+                    Spaceship spaceship = collisionObject.GetComponent<Spaceship>();
+                    spaceship.takeDamage(2f);
+                    break;
                 default:
                     break;
             }

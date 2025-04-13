@@ -9,6 +9,7 @@ TagManager:
   - PsyGuy
   - BigBack
   - Turret
+  - Spaceship
   layers:
   - Default
   - TransparentFX
