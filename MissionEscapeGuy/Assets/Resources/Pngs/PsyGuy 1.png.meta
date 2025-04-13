@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 9f7456fcada352443b9a8bc22193aa7c
+guid: 9d95582501870ca48ade83951a2111e1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5392933133258368233
-    second: PsyGuy_0
+      213: 2402169757976525284
+    second: PsyGuy 1_0
   - first:
-      213: -1703002791964382234
-    second: PsyGuy_1
+      213: 4899872280077237508
+    second: PsyGuy 1_1
   - first:
-      213: 6388185550866980617
-    second: PsyGuy_2
+      213: 6933097203255005644
+    second: PsyGuy 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,7 +106,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PsyGuy_0
+      name: PsyGuy 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e4ac499c1c87da40800000000000000
-      internalID: 5392933133258368233
+      spriteID: 4e9706aeaa8365120800000000000000
+      internalID: 2402169757976525284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PsyGuy_1
+      name: PsyGuy 1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -143,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6ebe67dcbf7bd58e0800000000000000
-      internalID: -1703002791964382234
+      spriteID: 40d79cac0e7dff340800000000000000
+      internalID: 4899872280077237508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PsyGuy_2
+      name: PsyGuy 1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -165,8 +165,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 90f95b699e467a850800000000000000
-      internalID: 6388185550866980617
+      spriteID: cc1d4495c2f473060800000000000000
+      internalID: 6933097203255005644
       vertices: []
       indices: 
       edges: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 008235e866cafb5419f414527cfe4f3e
+    spriteID: 631eaeece00160f4687c73572eac2ef3
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PsyGuy_0: 5392933133258368233
-      PsyGuy_1: -1703002791964382234
-      PsyGuy_2: 6388185550866980617
+      PsyGuy 1_0: 2402169757976525284
+      PsyGuy 1_1: 4899872280077237508
+      PsyGuy 1_2: 6933097203255005644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

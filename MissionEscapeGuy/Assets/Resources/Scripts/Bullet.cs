@@ -5,11 +5,15 @@ using UnityEngine;
 public class Bullet : NetworkBehaviour
 {
     private Rigidbody2D bullet;
+    private SpriteRenderer spriteRenderer;
     public float bulletSpeed = 10f;
     private int bulletDamage;
     private float destroyDistance;
     private Vector2 initialPosition;
     private Vector2 currentPosition;
+
+    [SerializeField] private Sprite blueSprite;
+    [SerializeField] private Sprite redSprite;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +21,8 @@ public class Bullet : NetworkBehaviour
         gameObject.GetComponent<NetworkObject>().Spawn();
 
         bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
+        spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
+
         initialPosition = currentPosition = bullet.transform.position;
         destroyDistance = 5f;
     }
@@ -38,6 +44,18 @@ public class Bullet : NetworkBehaviour
         this.bulletDamage = bulletDamage;
     }
 
+    public void setColor()
+    {
+        if (gameObject.CompareTag("Player") || gameObject.CompareTag("Turret"))
+        {
+            spriteRenderer.sprite = blueSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = redSprite;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collisionObject = collision.gameObject;
@@ -45,7 +63,7 @@ public class Bullet : NetworkBehaviour
         if (collisionObject.CompareTag("TortleGuy"))
         {
             TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
-            tortleGuy.takeDamage(2);
+            tortleGuy.takeDamage(2f);
         }
         Destroy(gameObject, 0.3f);
     }
