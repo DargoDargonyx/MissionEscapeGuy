@@ -37,7 +37,6 @@ public class TortleGuy : NetworkBehaviour
         }
 
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
-        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
     }
 
     // Update is called once per frame
