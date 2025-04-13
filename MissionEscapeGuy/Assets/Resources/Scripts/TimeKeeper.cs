@@ -1,7 +1,7 @@
 using System;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimeKeeper : MonoBehaviour
 {
@@ -20,6 +20,11 @@ public class TimeKeeper : MonoBehaviour
     {
         text.SetText(Math.Ceiling(time).ToString());
         time -= Time.deltaTime;
+
+        if (time <= 0)
+        {
+            SceneManager.LoadScene("EndMenu");
+        }
     }
 
 }
