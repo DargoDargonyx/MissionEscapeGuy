@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1482710630683092937}
   - component: {fileID: 4604724814055824108}
   - component: {fileID: -4689980630751449663}
+  - component: {fileID: 5557633885342717985}
   m_Layer: 7
   m_Name: TortleGuy
   m_TagString: TortleGuy
@@ -308,6 +309,28 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!95 &5557633885342717985
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4414323613854955417}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 71417d76205c7a04c8134a9282ff2558, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6136561696872146035
 GameObject:
   m_ObjectHideFlags: 0

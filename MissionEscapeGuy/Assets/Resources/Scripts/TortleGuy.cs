@@ -7,6 +7,7 @@ public class TortleGuy : NetworkBehaviour
 {
     public float moveSpeed = 4f;
     private Rigidbody2D body;
+    private Animator animator;
     private Vector2 currentPosition;
     private Vector2 targetPosition;
     private Vector2 targetDirection;
@@ -28,6 +29,7 @@ public class TortleGuy : NetworkBehaviour
             gameObject.GetComponent<NetworkObject>().Spawn();
             
             body = body == null ? GetComponent<Rigidbody2D>() : body;
+            animator = animator == null ? GetComponent<Animator>() : animator;
 
             currentPosition = transform.position;
 
@@ -75,12 +77,14 @@ public class TortleGuy : NetworkBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        animator.SetBool("isAttacking", true);
         if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             nextTime += 1f;
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             otherObject.takeDamage(1);
         }
+        animator.SetBool("isAttacking", false);
     }
 
     private void targetPortal()
@@ -156,5 +160,9 @@ public class TortleGuy : NetworkBehaviour
         }
     }
 
+    private void checkMovement()
+    {
+
+    }
 
 }

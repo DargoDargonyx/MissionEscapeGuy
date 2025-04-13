@@ -268,6 +268,18 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3686582259
       objectReference: {fileID: 0}
+    - target: {fileID: 6865806017872569853, guid: db94649abe37a8a44868055a33b021c5, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1268606132
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865806017872569853, guid: db94649abe37a8a44868055a33b021c5, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865806017872569853, guid: db94649abe37a8a44868055a33b021c5, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3686582259
+      objectReference: {fileID: 0}
     - target: {fileID: 7518467633357538362, guid: db94649abe37a8a44868055a33b021c5, type: 3}
       propertyPath: m_Name
       value: Turret
