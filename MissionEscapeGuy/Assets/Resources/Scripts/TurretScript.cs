@@ -20,6 +20,7 @@ public class TurretScript : NetworkBehaviour
     [SerializeField] private Sprite levelTwoSprite;
     [SerializeField] private Sprite levelThreeSprite;
     [SerializeField] private Transform launchOffset;
+    private float turretTime = 180f;
 
     void Start()
     {
@@ -46,11 +47,14 @@ public class TurretScript : NetworkBehaviour
             fire();
 
             time += Time.deltaTime;
+            turretTime -= Time.deltaTime;
         }
     }
 
     private void checkLevelConstraints()
     {
+        if (turretTime <= 120f) level = 2;
+        if (turretTime <= 60f) level = 3;
         switch (level)
         {
             case 1:

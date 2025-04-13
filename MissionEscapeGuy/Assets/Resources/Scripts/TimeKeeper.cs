@@ -1,28 +1,29 @@
 using System;
 using TMPro;
-using UnityEditor.SearchService;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class TimeKeeper : MonoBehaviour
 {
-    float time;
-    TextMeshPro text;
+    public static float time;
+    TextMeshProUGUI text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        time = Time.deltaTime * 180;
-        text = text == null ? GetComponent<TextMeshPro>() : text;
+        time = 180f;
+        text = text == null ? GetComponent<TextMeshProUGUI>() : text;
     }
 
     // Update is called once per frame
     void Update()
     {
         text.SetText(Math.Ceiling(time).ToString());
-        time -= Time.deltaTime;
-        if (time <= 0)
+
+        if (NetworkManager.Singleton.IsHost)
         {
-            Destroy(gameObject);
+            time -= Time.deltaTime;
         }
     }
+
 }
