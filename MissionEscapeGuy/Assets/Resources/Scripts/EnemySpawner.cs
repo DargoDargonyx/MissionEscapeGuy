@@ -9,8 +9,8 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     
-    [SerializeField] private float minSpawnTime = 2f;
-    [SerializeField] private float maxSpawnTime = 5f;
+    [SerializeField] private float minSpawnTime = 1f;
+    [SerializeField] private float maxSpawnTime = 3f;
     [SerializeField] int maxSpawnLimit = 20;
     public GameObject turtle;
     public GameObject bigBack;
@@ -46,14 +46,14 @@ public class EnemySpawner : MonoBehaviour
         Vector2 randomEdgePosition = getRandomEdgePosition();
         if (!pointIsRock(randomEdgePosition))
         {
-            int roll = new System.Random().Next(3);
+            int roll = new System.Random().Next(20);
             GameObject enemyToSpawn;
             switch (roll)
             {
-                case 0: enemyToSpawn = turtle; break;
-                case 1: enemyToSpawn = bigBack; break;
-                case 2: enemyToSpawn = psyGuy; break;
-                default: enemyToSpawn = turret; break;
+                case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10: enemyToSpawn = turtle; break;
+                case 11: case 12: case 13: case 14: enemyToSpawn = bigBack; break;
+                case 15:  case 16: case 17: case 18: case 19: case 20: enemyToSpawn = psyGuy; break;
+                default: enemyToSpawn = turtle; break;
             }
             Instantiate(enemyToSpawn, randomEdgePosition, Quaternion.identity);
             numEnemies += 1;

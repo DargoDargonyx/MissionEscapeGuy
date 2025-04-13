@@ -47,7 +47,7 @@ public class PsyGuy : MonoBehaviour
         if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
         {
             targetPortal();
-            if (time >= nextTime)
+            if (time >= nextTime && Vector2.Distance(currentPosition, targetPosition) <= attackRange)
             {
                 time = Time.time;
                 nextTime = time + 2f;

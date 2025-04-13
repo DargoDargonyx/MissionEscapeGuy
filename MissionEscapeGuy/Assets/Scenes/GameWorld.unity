@@ -725,6 +725,14 @@ PrefabInstance:
       propertyPath: bigBack
       value: 
       objectReference: {fileID: 2902242006220524642, guid: c6261b426577c7b408bb686ac8be12b1, type: 3}
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: maxSpawnTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3061933352850943409, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
+      propertyPath: minSpawnTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4860069430258913961, guid: f93b2bca8911d5a41bc72504f9157748, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
