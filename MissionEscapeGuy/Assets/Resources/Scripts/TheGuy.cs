@@ -31,9 +31,11 @@ public class TheGuy : NetworkBehaviour
     private NetworkVariable<int> shield = new NetworkVariable<int>(MAX_SHIELD);
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
     public NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>();
+    public NetworkVariable<int> colorSel = new NetworkVariable<int>(0);
     [SerializeField] private Transform launchOffset;
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;
+    [SerializeField] private Sprite redSprite;
     [SerializeField] private Sprite greenSprite;
     [SerializeField] private Sprite orangeSprite;
     [SerializeField] private Sprite blankSprite;
@@ -91,14 +93,23 @@ public class TheGuy : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void playerCosmeticRpc(string user)
+    public void playerCosmeticRpc(string user, int colSel)
     {
         username.Value = user;
+        initializeColorRpc(colSel);
     }
 
-    private void initializeColor()
+    [Rpc(SendTo.Everyone)]
+    private void initializeColorRpc(int colSel)
     {
-
+        switch (colSel)
+        {
+            case 1: spriteRenderer.sprite = purpleSprite; break;
+            case 2: spriteRenderer.sprite = blueSprite; break;
+            case 3: spriteRenderer.sprite = redSprite; break;
+            case 4: spriteRenderer.sprite = greenSprite; break;
+            case 5: spriteRenderer.sprite = orangeSprite; break;
+        }
     }
 
     public Vector2 getPosition()

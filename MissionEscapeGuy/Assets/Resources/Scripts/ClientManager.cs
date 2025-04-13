@@ -28,7 +28,7 @@ public class ClientManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Lobby") 
             {
                 string user = FindAnyObjectByType<TMP_InputField>().text;
-                player.GetComponent<TheGuy>().playerCosmeticRpc(user);
+                player.GetComponent<TheGuy>().playerCosmeticRpc(user, 0);
 
             }
 

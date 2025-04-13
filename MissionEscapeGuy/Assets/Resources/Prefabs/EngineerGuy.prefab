@@ -350,9 +350,10 @@ MonoBehaviour:
   launchOffset: {fileID: 3705440630020355818}
   purpleSprite: {fileID: -6827585837660603668, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
   blueSprite: {fileID: 4372332230537885687, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
-  greenSprite: {fileID: 3409710022417916962, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
-  orangeSprite: {fileID: -5850118368738180398, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
-  blankSprite: {fileID: 464264334160402357, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  redSprite: {fileID: 3409710022417916962, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  greenSprite: {fileID: -5850118368738180398, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  orangeSprite: {fileID: 464264334160402357, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
+  blankSprite: {fileID: -149423175802391517, guid: 7ef4d113dd3e15340957cb6a30c1c9da, type: 3}
 --- !u!114 &3206895048040754939
 MonoBehaviour:
   m_ObjectHideFlags: 0
