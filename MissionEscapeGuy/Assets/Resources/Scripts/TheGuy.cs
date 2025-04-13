@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using Unity.Collections;
+using System;
+using System.Collections;
 
 public class TheGuy : MonoBehaviour
 {
@@ -62,7 +64,8 @@ public class TheGuy : MonoBehaviour
             regenTimer = 10;
         }
         if (health == 0)
-            Destroy(gameObject);
+            SceneManager.LoadSceneAsync("EndMenu");
+            //Destroy(gameObject);
 
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
