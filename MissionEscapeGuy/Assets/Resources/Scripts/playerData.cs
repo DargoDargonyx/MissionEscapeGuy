@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class playerData
 {
+    public static float spaceShipHealth;
 
     public static bool isPurple;
     public static bool isBlue;
