@@ -151,6 +151,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PsyGuy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5754516326381539505, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1233979607
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754516326381539505, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1586958116
+      objectReference: {fileID: 0}
     - target: {fileID: 8490054304169079659, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.063955545
@@ -1030,6 +1038,14 @@ PrefabInstance:
     - target: {fileID: 4031704171426020440, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
       propertyPath: m_Name
       value: PsyGuy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754516326381539505, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1666739391
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754516326381539505, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1586958116
       objectReference: {fileID: 0}
     - target: {fileID: 8490054304169079659, guid: 5c4b536814e7bd74592fd1f21f63e89d, type: 3}
       propertyPath: m_LocalPosition.x
