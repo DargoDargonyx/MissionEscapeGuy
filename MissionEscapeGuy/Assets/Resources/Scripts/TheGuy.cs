@@ -54,6 +54,7 @@ public class TheGuy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkColor();
         regenTimer -= Time.deltaTime;
         if (regenTimer < 0)
         {
@@ -77,7 +78,7 @@ public class TheGuy : MonoBehaviour
             Fire();
         }
 
-        animator.SetBool("isMoving", moveX > 0 || moveY > 0);
+        animator.SetBool("isMoving", moveX != 0 || moveY != 0);
 
     }
 
