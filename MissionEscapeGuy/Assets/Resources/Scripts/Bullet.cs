@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour
 
     public void setEnemyStatus(bool status)
     {
+        spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
         isBad = status;
         isGood = !status;
         if (status)
