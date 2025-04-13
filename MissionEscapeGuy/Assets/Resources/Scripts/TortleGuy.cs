@@ -18,6 +18,8 @@ public class TortleGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.GetComponent<NetworkObject>().Spawn();
+
         body = body == null ? GetComponent<Rigidbody2D>() : body;
 
         health = 4;

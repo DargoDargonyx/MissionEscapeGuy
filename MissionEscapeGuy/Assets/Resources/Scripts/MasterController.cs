@@ -28,8 +28,7 @@ public class MasterController : MonoBehaviour
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
-                    var toSpawn = Instantiate(turtle);
-                    toSpawn.GetComponent<NetworkObject>().Spawn();
+                    Instantiate(turtle);
                 }
                 else
                 {
