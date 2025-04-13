@@ -109,7 +109,8 @@ public class PsyGuy : NetworkBehaviour
 
     private void shoot()
     {
-        Instantiate(bullet, launchOffset.position, launchOffset.rotation);
+        Bullet clone = Instantiate(bullet, launchOffset.position, launchOffset.rotation);
+        clone.setEnemyStatus(true);
     }
 
     public void takeDamage(float damage)

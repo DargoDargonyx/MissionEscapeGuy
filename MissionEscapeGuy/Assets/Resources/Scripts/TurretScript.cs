@@ -112,7 +112,8 @@ public class TurretScript : NetworkBehaviour
         if (time >= nextTime)
         {
             nextTime += 1f;
-            Instantiate(bullet, launchOffset.position, launchOffset.rotation);
+            Bullet clone = Instantiate(bullet, launchOffset.position, launchOffset.rotation);
+            clone.setEnemyStatus(false);
         }
     }
 
