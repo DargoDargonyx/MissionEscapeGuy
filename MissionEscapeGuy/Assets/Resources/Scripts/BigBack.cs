@@ -13,6 +13,7 @@ public class BigBack : MonoBehaviour
     private float time;
     private float nextTime;
     private float attackRange;
+    private int attackDamage;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,6 +46,26 @@ public class BigBack : MonoBehaviour
         else
         {
             targetPortal();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        {
+            time = nextTime;
+            nextTime += 1f;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
+            time = nextTime;
+            nextTime += 1f;
+            otherObject.takeDamage(attackDamage);
         }
     }
 
