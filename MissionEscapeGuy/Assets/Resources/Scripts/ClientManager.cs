@@ -11,6 +11,7 @@ public class ClientManager : MonoBehaviour
     private float moveY;
     Quaternion targetRotation;
     public Camera camera;
+    public static int selCol = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,8 +29,7 @@ public class ClientManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Lobby") 
             {
                 string user = FindAnyObjectByType<TMP_InputField>().text;
-                player.GetComponent<TheGuy>().playerCosmeticRpc(user, 0);
-
+                player.GetComponent<TheGuy>().playerCosmeticRpc(user, selCol);
             }
 
             moveX = Input.GetAxisRaw("Horizontal");
