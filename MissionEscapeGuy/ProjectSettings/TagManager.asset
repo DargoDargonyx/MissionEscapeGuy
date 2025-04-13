@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - TortleGuy
+  - PsyGuy
+  - BigBack
   layers:
   - Default
   - TransparentFX
