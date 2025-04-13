@@ -7,14 +7,18 @@ public class PsyGuy : NetworkBehaviour
     private Animator animator;
     private Bullet bullet;
     private TheGuy closestPlayer;
-    private int health;
+    private float health;
+    private const float MAX_HEALTH = 6f;
     private float moveSpeed = 2f;
     private float attackRange = 10f;
     private Vector2 targetPosition = new(0, 0);
     private Vector2 currentPosition;
     private float time;
     private float nextTime;
-    
+
+    [SerializeField] private EnemyHealthBarScript healthBar;
+    [SerializeField] private Transform launchOffset;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,8 +28,10 @@ public class PsyGuy : NetworkBehaviour
         // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+        healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
 
-        health = 6;
+        health = MAX_HEALTH;
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
 
         currentPosition = transform.position;
         time = nextTime = Time.time;
@@ -34,6 +40,8 @@ public class PsyGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        //checkDeath();
+
         time += Time.deltaTime;
         currentPosition = transform.position;
         closestPlayer = findClosestPlayer();
@@ -51,6 +59,7 @@ public class PsyGuy : NetworkBehaviour
                 shoot();
             }
         }
+
     }
 
     private void targetPlayer(TheGuy closestPlayer)
@@ -69,7 +78,7 @@ public class PsyGuy : NetworkBehaviour
 
     private TheGuy findClosestPlayer()
     {
-        float closestDistance = 999f;
+        float closestDistance = Mathf.Infinity;
         ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
         NetworkObject firstPlayer = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(firstID);
         TheGuy closestPlayer = firstPlayer.GetComponent<TheGuy>();
@@ -94,6 +103,28 @@ public class PsyGuy : NetworkBehaviour
 
     private void shoot()
     {
-
+        Instantiate<Bullet>(bullet, launchOffset.position, transform.rotation);
     }
+
+    public void takeDamage(float damage)
+    {
+        if (health > damage)
+        {
+            health -= damage;
+            healthBar.UpdateHealthBar(health, MAX_HEALTH);
+        }
+        else
+        {
+            health = 0f;
+        }
+    }
+
+    private void checkDeath()
+    {
+        if (health == 0)
+        {
+            Destroy(gameObject, 0.25f);
+        }
+    }
+
 }

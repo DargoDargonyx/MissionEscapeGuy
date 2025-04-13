@@ -59,12 +59,26 @@ public class Bullet : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collisionObject = collision.gameObject;
+        string tag = collisionObject.tag;
 
-        if (collisionObject.CompareTag("TortleGuy"))
+        switch (tag)
         {
-            TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
-            tortleGuy.takeDamage(2f);
+            case "TortleGuy":
+                TortleGuy tortleGuy = collisionObject.GetComponent<TortleGuy>();
+                tortleGuy.takeDamage(2f);
+                break;
+            case "PsyGuy":
+                PsyGuy psyGuy = collisionObject.GetComponent<PsyGuy>();
+                psyGuy.takeDamage(2f);
+                break;
+            case "BigBack":
+                BigBack bigBack = collisionObject.GetComponent<BigBack>();
+                bigBack.takeDamage(2f);
+                break;
+            default:
+                break;
         }
+
         Destroy(gameObject, 0.3f);
     }
 }

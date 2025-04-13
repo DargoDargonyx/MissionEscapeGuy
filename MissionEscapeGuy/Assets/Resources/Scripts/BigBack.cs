@@ -9,7 +9,8 @@ public class BigBack : MonoBehaviour
     private Vector2 targetPosition;
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
-    private int health;
+    private float health;
+    private const float MAX_HEALTH = 10f;
     private float time;
     private float nextTime;
     private float attackRange;
@@ -20,7 +21,7 @@ public class BigBack : MonoBehaviour
     {
         body = body == null ? GetComponent<Rigidbody2D>() : body;
 
-        health = 10;
+        health = MAX_HEALTH;
         currentPosition = transform.position;
         attackRange = 10f;
         attackDamage = 4;
@@ -121,8 +122,16 @@ public class BigBack : MonoBehaviour
     }
 
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
-        health -= damage;
+        if (health > damage)
+        {
+            health -= damage;
+            //healthBar.UpdateHealthBar(health, MAX_HEALTH);
+        }
+        else
+        {
+            health = 0;
+        }
     }
 }
