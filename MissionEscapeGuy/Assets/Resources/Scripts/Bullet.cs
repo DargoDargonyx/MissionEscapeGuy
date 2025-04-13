@@ -20,8 +20,6 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetComponent<NetworkObject>().Spawn();
-
         bullet = bullet == null ? GetComponent<Rigidbody2D>() : bullet;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
 
@@ -33,7 +31,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position += transform.right * Time.deltaTime * bulletSpeed;
-        currentPosition = bullet.transform.position;
+        currentPosition = transform.position;
         
         if (Math.Pow(currentPosition.x, 2) - Math.Pow(initialPosition.x, 2) >= Math.Pow(destroyDistance, 2) || Math.Pow(currentPosition.y, 2) - Math.Pow(initialPosition.y, 2) >= Math.Pow(destroyDistance, 2))
         {

@@ -72,11 +72,20 @@ public class TortleGuy : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
         animator.SetBool("isAttacking", false);
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
+        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
-        animator.SetBool("isAttacking", true);
-            nextTime += 1f;
+            animator.SetBool("isAttacking", true);
+            time = Time.time;
+            nextTime = time + 1f;
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
+            otherObject.takeDamage(1);
+        }
+        else if (collision.gameObject.CompareTag("Spaceship") && time >= nextTime)
+        {
+            animator.SetBool("isAttacking", true);
+            time = Time.time;
+            nextTime = time + 1f;
+            Spaceship otherObject = collision.gameObject.GetComponent<Spaceship>();
             otherObject.takeDamage(1);
         }
     }
@@ -101,27 +110,7 @@ public class TortleGuy : MonoBehaviour
 
     private TheGuy findNearestPlayer()
     {
-        float closestDistance = 999f;
-        ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
-        NetworkObject firstPlayer = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(firstID);
-        TheGuy closestPlayer = firstPlayer.GetComponent<TheGuy>();
-
-        /* This loop iterates through every player in the GameManager and finds the closest. */
-        foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
-            var currentPlayer = playerObject.GetComponent<TheGuy>();
-            Vector2 PlayerPosition = currentPlayer.transform.position;
-            float currentPlayerDistance = Vector2.Distance(currentPosition, PlayerPosition);
-
-            if (currentPlayerDistance < closestDistance)
-            {
-                closestPlayer = currentPlayer;
-                closestDistance = currentPlayerDistance;
-            }
-        }
-
-        return closestPlayer;
+        return FindFirstObjectByType<TheGuy>();   
     }
 
     private Vector2 getDirection()

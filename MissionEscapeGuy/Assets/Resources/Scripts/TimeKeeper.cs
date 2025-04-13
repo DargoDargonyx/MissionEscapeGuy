@@ -24,6 +24,8 @@ public class TimeKeeper : MonoBehaviour
         if (time <= 0)
         {
             SceneManager.LoadScene("EndMenu");
+            Scene endScene = SceneManager.GetSceneByName("EndMenu");
+            SceneManager.SetActiveScene(endScene);
         }
     }
 

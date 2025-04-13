@@ -24,7 +24,6 @@ public class PsyGuy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // animator = animator == null ? GetComponent<Animator>() : animator;
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
 
@@ -50,6 +49,7 @@ public class PsyGuy : MonoBehaviour
             targetPortal();
             if (time >= nextTime)
             {
+                time = Time.time;
                 nextTime = time + 2f;
                 shoot();
             }
@@ -59,6 +59,7 @@ public class PsyGuy : MonoBehaviour
             targetPlayer(closestPlayer);
             if (time >= nextTime)
             {
+                time = Time.time;
                 nextTime = time + 2f;
                 shoot();
             }
@@ -78,31 +79,12 @@ public class PsyGuy : MonoBehaviour
     private void targetPortal()
     {
         body.linearVelocity = (targetPosition - currentPosition).normalized * moveSpeed;
+        transform.LookAt(targetPosition);
     }
 
     private TheGuy findClosestPlayer()
     {
-        float closestDistance = Mathf.Infinity;
-        ulong firstID = NetworkManager.Singleton.ConnectedClientsIds[0];
-        NetworkObject firstPlayer = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(firstID);
-        TheGuy closestPlayer = firstPlayer.GetComponent<TheGuy>();
-
-        /* This loop iterates through every player in the GameManager and finds the closest. */
-        foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
-            var currentPlayer = playerObject.GetComponent<TheGuy>();
-            Vector2 PlayerPosition = currentPlayer.transform.position;
-            float currentPlayerDistance = Vector2.Distance(currentPosition, PlayerPosition);
-
-            if (currentPlayerDistance < closestDistance)
-            {
-                closestPlayer = currentPlayer;
-                closestDistance = currentPlayerDistance;
-            }
-        }
-
-        return closestPlayer;
+        return FindFirstObjectByType<TheGuy>();
     }
 
     private void shoot()
