@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +35,7 @@ public class MasterController : MonoBehaviour
                 else
                 {
                     connectTo = "152.10.97.41";
-                    NetworkManager.Singleton.ConnectedHostname
+                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(connectTo, 27586);
                     NetworkManager.Singleton.StartClient();
                 }
                 isInitialized = true;
