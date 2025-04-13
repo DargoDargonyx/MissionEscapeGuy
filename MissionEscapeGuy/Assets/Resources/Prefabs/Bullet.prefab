@@ -130,7 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d3070b5bc918f4ea051f408aac20e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   bulletSpeed: 2
 --- !u!114 &2032452325021949709
 MonoBehaviour:
@@ -203,6 +202,3 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
-=======
-  bulletSpeed: 10
->>>>>>> Stashed changes

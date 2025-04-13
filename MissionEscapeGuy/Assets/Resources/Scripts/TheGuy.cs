@@ -25,7 +25,6 @@ public class TheGuy : NetworkBehaviour
     private int health;
     private int shield;
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
-    [SerializeField] private Transform launchOffset;
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite greenSprite;
@@ -82,7 +81,9 @@ public class TheGuy : NetworkBehaviour
 
     private void fire()
     {
-        Instantiate<Bullet>(bullet, launchOffset.position, transform.rotation);
+        Rigidbody2D clone;
+        clone = Instantiate<Bullet>(bullet, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
+        clone.linearVelocity = getRotation().normalized * 2;
     }
 
     private void initializeColor()
