@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 public class HelloWorldManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject hostButton;
     [SerializeField] private GameObject joinButton;
+    [SerializeField] private GameObject joinIPField;
 
     public void OnHostButtonClicked() 
     {
@@ -21,6 +24,7 @@ public class HelloWorldManager : MonoBehaviour
     {
         joinButton.GetComponent<Animator>().SetBool("buttonPressed", true);
         MasterController.isHost = false;
+        MasterController.connectTo = joinIPField.GetComponent<TMP_InputField>().text;
         Invoke("loadGameWorld", 0.5f);
     }
 

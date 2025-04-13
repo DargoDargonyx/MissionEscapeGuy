@@ -8,7 +8,7 @@ public class MasterController : MonoBehaviour
     public static bool isHost = false;
     bool isInitialized = false;
     public GameObject turtle;
-    public string connectTo;
+    public static string connectTo;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,7 +34,6 @@ public class MasterController : MonoBehaviour
                 }
                 else
                 {
-                    connectTo = "152.10.97.41";
                     NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(connectTo, 27586);
                     NetworkManager.Singleton.StartClient();
                 }
