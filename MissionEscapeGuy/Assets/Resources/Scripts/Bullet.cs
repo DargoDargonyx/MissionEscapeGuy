@@ -7,7 +7,7 @@ public class Bullet : NetworkBehaviour
     private Rigidbody2D bullet;
     public LayerMask enemyLayer;
     private SpriteRenderer spriteRenderer;
-    public float bulletSpeed = 10f;
+    public float bulletSpeed = 15f;
     private int bulletDamage;
     private float destroyDistance;
     private Vector2 initialPosition;

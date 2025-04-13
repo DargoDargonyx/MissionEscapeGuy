@@ -13,6 +13,7 @@ public class TurretScript : NetworkBehaviour
     private Bullet bullet;
     private float time;
     private float nextTime;
+    private Quaternion targetRotation;
 
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Sprite levelOneSprite;
@@ -70,7 +71,7 @@ public class TurretScript : NetworkBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+        targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
@@ -94,10 +95,12 @@ public class TurretScript : NetworkBehaviour
 
     private void fire()
     {
-        if (closestEnemy != null && time >= nextTime)
+        //Quaternion newRot = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f));
+
+        if (time >= nextTime)
         {
             nextTime += 1f;
-            Instantiate(bullet, launchOffset.position, transform.rotation);
+            Instantiate(bullet, launchOffset.position, launchOffset.rotation);
         }
     }
 
