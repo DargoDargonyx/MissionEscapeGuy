@@ -22,8 +22,8 @@ public class TheGuy : NetworkBehaviour
     private bool isOrange;
     private const int MAX_HEALTH = 20;
     private const int MAX_SHIELD = 10;
-    private int health;
-    private int shield;
+    private NetworkVariable<int> health = new NetworkVariable<int>(MAX_HEALTH);
+    private NetworkVariable<int> shield = new NetworkVariable<int>(MAX_SHIELD);
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
     [SerializeField] private Transform launchOffset;
     [SerializeField] private Sprite purpleSprite;
@@ -36,9 +36,6 @@ public class TheGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = MAX_HEALTH;
-        shield = MAX_SHIELD;
-
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         animator = animator == null ? GetComponent<Animator>() : animator;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
@@ -48,7 +45,7 @@ public class TheGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health == 0)
+        if (health.Value == 0)
             Destroy(gameObject);
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -106,17 +103,17 @@ public class TheGuy : NetworkBehaviour
         Debug.Log("Initial Shield: " + getShield());
         // difference will be negative if damage is more than
         // the amount of shields the player has.
-        int difference = shield - damage;
+        int difference = shield.Value - damage;
 
         if (difference < 0)
         {
             difference *= -1;
             setShield(0);
-            setHealth(health - difference);
+            setHealth(health.Value - difference);
         }
         else
         {
-            setShield(shield - damage);
+            setShield(shield.Value - damage);
         }
         Debug.Log("New Health: " + getHealth());
         Debug.Log("New Shield: " + getShield());
@@ -124,23 +121,23 @@ public class TheGuy : NetworkBehaviour
 
     public int getHealth()
     {
-        return health;
+        return health.Value;
     }
 
     public void setHealth(int health)
     {
         if (health < 0) return;
-        this.health = health;
+        this.health.Value = health;
     }
 
     public int getShield()
     {
-        return shield;
+        return shield.Value;
     }
 
     public void setShield(int shield)
     {
         if (shield < 0) return;
-        this.shield = shield;
+        this.shield.Value = shield;
     }
 }
