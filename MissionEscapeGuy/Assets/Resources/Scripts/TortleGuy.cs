@@ -10,8 +10,8 @@ public class TortleGuy : NetworkBehaviour
     private Vector2 targetPosition;
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
-    private float health;
     private const float MAX_HEALTH = 4f; 
+    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
     private float time;
     private float nextTime;
     private float attackRange = 10f;
@@ -24,45 +24,48 @@ public class TortleGuy : NetworkBehaviour
         if (MasterController.isHost)
         {
             gameObject.GetComponent<NetworkObject>().Spawn();
+            
+            body = body == null ? GetComponent<Rigidbody2D>() : body;
+
+            currentPosition = transform.position;
+
+            targetPosition = new(0, 0); // World Origin, where spaceship is located
+            targetDirection = currentPosition - targetPosition;
+            
+            time = Time.time;
+            nextTime = time;
         }
 
-        body = body == null ? GetComponent<Rigidbody2D>() : body;
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
-
-        health = MAX_HEALTH;
-        healthBar.UpdateHealthBar(health, MAX_HEALTH);
-        currentPosition = transform.position;
-
-        targetPosition = new(0, 0); // World Origin, where spaceship is located
-        targetDirection = currentPosition - targetPosition;
-        
-        time = Time.time;
-        nextTime = time;
+        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkDeath();
+        if (MasterController.isHost) {
+            checkDeath();
 
-        time += Time.deltaTime;
+            time += Time.deltaTime;
 
-        currentPosition = transform.position;
+            currentPosition = transform.position;
 
-        closestPlayer = findNearestPlayer();
-        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
-        {
-            targetPlayer(closestPlayer);
+            closestPlayer = findNearestPlayer();
+            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
+            {
+                targetPlayer(closestPlayer);
+            }
+            else
+            {
+                targetPortal();
+            }
         }
-        else
-        {
-            targetPortal();
-        }
+        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             time = Time.time;
             nextTime = time + 1f;
@@ -71,7 +74,7 @@ public class TortleGuy : NetworkBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             nextTime += 1f;
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
@@ -129,21 +132,23 @@ public class TortleGuy : NetworkBehaviour
 
     public void takeDamage(float damage)
     {
-        if (health > damage)
+        if (MasterController.isHost)
         {
-            health -= damage;
-            healthBar.UpdateHealthBar(health, MAX_HEALTH);
+            if (health.Value > damage)
+            {
+                health.Value -= damage;
+            }
+            else
+            {
+                health.Value = 0;
+            }
+            Debug.Log(health);
         }
-        else
-        {
-            health = 0;
-        }
-        Debug.Log(health);
     }
 
     private void checkDeath()
     {
-        if (health == 0)
+        if (health.Value == 0)
         {
             Destroy(gameObject, 0.25f);
         }
