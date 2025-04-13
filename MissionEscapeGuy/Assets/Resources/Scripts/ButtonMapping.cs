@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class ButtonMapping : MonoBehaviour
@@ -7,4 +8,5 @@ public class ButtonMapping : MonoBehaviour
     public void RedButton() => ClientManager.selCol = 3;
     public void GreenButton() => ClientManager.selCol = 4;
     public void OrangeButton() => ClientManager.selCol = 5;
+    public void ReadyUp() => NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject().GetComponent<TheGuy>().isReady.Value = true;
 }

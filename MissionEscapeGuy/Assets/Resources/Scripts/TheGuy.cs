@@ -32,6 +32,7 @@ public class TheGuy : NetworkBehaviour
     public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
     public NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>();
     public NetworkVariable<int> colorSel = new NetworkVariable<int>(0);
+    public NetworkVariable<bool> isReady = new NetworkVariable<bool>(false);
     [SerializeField] private Transform launchOffset;
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;

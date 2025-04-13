@@ -38,6 +38,24 @@ public class MasterController : MonoBehaviour
                 }
                 isInitialized = true;
             }
+
+            if (isHost && SceneManager.GetActiveScene().name == "Lobby")
+            {
+                bool allReady = true;
+                foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
+                {
+                    var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid);
+                    var currentPlayer = playerObject.GetComponent<TheGuy>();
+                    if (!currentPlayer.isReady.Value)
+                    {
+                        allReady = false;
+                    }
+                }
+                if (allReady)
+                {
+                    SceneManager.LoadScene("GameWorld");
+                }
+            }
         }
     }
 }
