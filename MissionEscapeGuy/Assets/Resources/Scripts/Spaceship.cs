@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spaceship : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Spaceship : MonoBehaviour
     void Update()
     {
         playerData.spaceShipHealth = health;
+        if (health == 0)
+        {
+            SceneManager.LoadSceneAsync("EndMenu");
+        }
     }
 
     public void takeDamage(float damage)
