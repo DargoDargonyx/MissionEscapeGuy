@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -2872102242519681}
   - component: {fileID: 3645492324199366766}
   - component: {fileID: -3232473691745490763}
-  - component: {fileID: 2968192488661882803}
   - component: {fileID: -1976903370657059645}
+  - component: {fileID: 2968192488661882803}
   - component: {fileID: -6904399165003327055}
   m_Layer: 0
   m_Name: PsyGuy
@@ -155,18 +155,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.1}
   m_Radius: 0.35
---- !u!114 &2968192488661882803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4031704171426020440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef6b0b341452dd469ec73d37255c3cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1976903370657059645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +180,19 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &2968192488661882803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031704171426020440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef6b0b341452dd469ec73d37255c3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &-6904399165003327055
 MonoBehaviour:
   m_ObjectHideFlags: 0
