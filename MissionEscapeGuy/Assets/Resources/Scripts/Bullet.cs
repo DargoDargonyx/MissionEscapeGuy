@@ -42,6 +42,10 @@ public class Bullet : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collisionObject = collision.gameObject;
+        if (collisionObject.layer == enemyLayer)
+        {
+            collisionObject.takeDamage();
+        }
         Destroy(gameObject, 0.3f);
     }
 }
