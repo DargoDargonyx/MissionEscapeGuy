@@ -10,18 +10,23 @@ public class TurretScript : NetworkBehaviour
     public int level = 1;
     private float rotationSpeed;
     private float detectionRadius;
+    private Bullet bullet;
+    private float time;
+    private float nextTime;
 
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Sprite levelOneSprite;
     [SerializeField] private Sprite levelTwoSprite;
     [SerializeField] private Sprite levelThreeSprite;
+    [SerializeField] private Transform launchOffset;
 
     void Start()
     {
-        gameObject.GetComponent<NetworkObject>().Spawn();
-
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
+        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+
+        time = nextTime = Time.time;
     }
 
     // Update is called once per frame
@@ -30,6 +35,9 @@ public class TurretScript : NetworkBehaviour
         checkLevelConstraints();
         findClosestEnemy();
         checkDirection();
+        fire();
+
+        time += Time.deltaTime;
     }
 
     private void checkLevelConstraints()
@@ -84,6 +92,13 @@ public class TurretScript : NetworkBehaviour
         }
     }
 
-
+    private void fire()
+    {
+        if (closestEnemy != null && time >= nextTime)
+        {
+            nextTime += 1f;
+            Instantiate(bullet, launchOffset.position, transform.rotation);
+        }
+    }
 
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8422138083749761149}
   - component: {fileID: 6143127087825242529}
   - component: {fileID: 3841645447248660879}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: healthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4327079166084850674}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: -2289906683227474860}
   - component: {fileID: 6679901138928472704}
   - component: {fileID: 7732696084836669044}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BigBack
   m_TagString: BigBack
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 7099250023163580761}
   - component: {fileID: 2121164394910284161}
   - component: {fileID: 1318709754822895360}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 6378102573047274260}
   - component: {fileID: 4729883018709295507}
   - component: {fileID: 7135266880169200739}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
