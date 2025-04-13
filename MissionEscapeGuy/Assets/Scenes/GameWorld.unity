@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 04:7B:CB:CF:6F:74
+    Address: 152.10.97.41
     Port: 27586
     ServerListenAddress: 0.0.0.0
   DebugSimulator:
