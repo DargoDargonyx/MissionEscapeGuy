@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BigBack : MonoBehaviour
+public class BigBack : NetworkBehaviour
 {
     public float moveSpeed = 1f;
     private Rigidbody2D body;
@@ -10,8 +10,8 @@ public class BigBack : MonoBehaviour
     private Vector2 targetPosition;
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
-    private float health;
     private const float MAX_HEALTH = 10f;
+    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
     private float time;
     private float nextTime;
     private float attackRange;
@@ -23,43 +23,53 @@ public class BigBack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        body = body == null ? GetComponent<Rigidbody2D>() : body;
+        if (MasterController.isHost)
+        {
+            gameObject.GetComponent<NetworkObject>().Spawn();
+
+            body = body == null ? GetComponent<Rigidbody2D>() : body;
+
+            currentPosition = transform.position;
+            attackRange = 10f;
+            attackDamage = 4;
+
+            targetPosition = new(0, 0); // World Origin, where spaceship is located
+            targetDirection = currentPosition - targetPosition;
+            
+            time = Time.time;
+            nextTime = time;
+        }
+
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
-
-        health = MAX_HEALTH;
-        currentPosition = transform.position;
-        attackRange = 10f;
-        attackDamage = 4;
-
-        targetPosition = new(0, 0); // World Origin, where spaceship is located
-        targetDirection = currentPosition - targetPosition;
-        
-        time = Time.time;
-        nextTime = time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkDeath();
-        time += Time.deltaTime;
-
-        currentPosition = transform.position;
-
-        closestPlayer = findNearestPlayer();
-        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
+        if (MasterController.isHost)
         {
-            targetPlayer(closestPlayer);
+            checkDeath();
+            time += Time.deltaTime;
+
+            currentPosition = transform.position;
+
+            closestPlayer = findNearestPlayer();
+            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
+            {
+                targetPlayer(closestPlayer);
+            }
+            else
+            {
+                targetPortal();
+            }
         }
-        else
-        {
-            targetPortal();
-        }
+
+        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             time = nextTime;
             nextTime += 2f;
@@ -68,7 +78,7 @@ public class BigBack : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
+        if (MasterController.isHost && collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             time = nextTime;
@@ -122,7 +132,7 @@ public class BigBack : MonoBehaviour
 
     private void checkDeath()
     {
-        if (health <= 0)
+        if (health.Value <= 0)
         {
             scrollBar.handleRect.gameObject.SetActive(false);
             Destroy(gameObject, 0.25f);
@@ -133,14 +143,14 @@ public class BigBack : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        if (health > damage)
+        if (health.Value > damage)
         {
-            health -= damage;
-            healthBar.UpdateHealthBar(health, MAX_HEALTH);
+            health.Value -= damage;
+            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
         }
         else
         {
-            health = 0;
+            health.Value = 0;
         }
     }
 }
