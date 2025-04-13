@@ -48,6 +48,7 @@ MonoBehaviour:
   enemyToSpawn: {fileID: 4414323613854955417, guid: 594b518db46337d4ea78c862683b3637, type: 3}
   minSpawnTime: 2
   maxSpawnTime: 5
+  rock: {fileID: 0}
 --- !u!61 &-106139683701953323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -92,5 +93,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 255, y: 255}
+  m_Size: {x: 220, y: 220}
   m_EdgeRadius: 1

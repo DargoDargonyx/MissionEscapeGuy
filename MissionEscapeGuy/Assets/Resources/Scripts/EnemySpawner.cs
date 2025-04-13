@@ -1,9 +1,5 @@
-using static System.Random;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -38,7 +34,14 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector2 randomEdgePosition = getRandomEdgePosition();
         if (!pointIsRock(randomEdgePosition))
+        {
             Instantiate(enemyToSpawn, randomEdgePosition, Quaternion.identity);
+            Debug.Log("Turtle Spawned!");
+        }
+        else
+        {
+            Debug.Log("Turtle Not Spawned!");
+        }
     }
 
     private void setTimeUntilSpawn()
@@ -48,8 +51,8 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector2 getRandomEdgePosition()
     {
-        float randomX = Random.Range(0, 255f / 2f);
-        float randomY = Random.Range(0, 255f / 2f);
+        float randomX = Random.Range(-220f / 2f, 220f / 2f);
+        float randomY = Random.Range(-220f / 2f, 220f / 2f);
         Vector2 randomPosition = new(randomX, randomY);
 
         return collider.ClosestPoint(randomPosition);
@@ -57,8 +60,9 @@ public class EnemySpawner : MonoBehaviour
 
     private bool pointIsRock(Vector2 point)
     {
-        // point = (Vector2Absolute) point.Abs();
-        // tilemap.getTile
-        return false;
+        Vector3Int newPoint = tilemap.WorldToCell(point);
+        Tile spawnTile = tilemap.GetTile<Tile>(newPoint);
+
+        return (spawnTile.name == "Tile_0");
     }
 }
