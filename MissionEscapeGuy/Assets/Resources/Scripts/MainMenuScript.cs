@@ -22,10 +22,10 @@ public class HelloWorldManager : MonoBehaviour
     private bool buttonHasBeenPressed()
     {
         return playerData.isPurple 
-            && playerData.isBlue 
-            && playerData.isRed 
-            && playerData.isGreen 
-            && playerData.isOrange;
+            || playerData.isBlue 
+            || playerData.isRed 
+            || playerData.isGreen 
+            || playerData.isOrange;
     }
 
     public void purpleButton()

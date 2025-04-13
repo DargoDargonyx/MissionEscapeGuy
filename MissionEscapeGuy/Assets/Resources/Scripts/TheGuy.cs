@@ -76,6 +76,9 @@ public class TheGuy : MonoBehaviour
         {
             Fire();
         }
+
+        animator.SetBool("isMoving", moveX > 0 || moveY > 0);
+
     }
 
     private void checkDirection()
@@ -139,6 +142,36 @@ public class TheGuy : MonoBehaviour
         }
         Debug.Log("New Health: " + getHealth());
         Debug.Log("New Shield: " + getShield());
+    }
+
+    private void checkColor()
+    {
+        if (playerData.isPurple)
+        {
+            spriteRenderer.sprite = purpleSprite;
+            animator.SetBool("isPurple", true);
+        }
+        if (playerData.isBlue)
+        {
+            spriteRenderer.sprite = blueSprite;
+            animator.SetBool("isBlue", true);
+        }
+        if (playerData.isRed)
+        {
+            spriteRenderer.sprite = redSprite;
+            animator.SetBool("isRed", true);
+        }
+        if (playerData.isGreen)
+        {
+            spriteRenderer.sprite = greenSprite;
+            animator.SetBool("isGreen", true);
+        }
+        if (playerData.isOrange)
+        {
+            spriteRenderer.sprite = orangeSprite;
+            animator.SetBool("isOrange", true);
+        }
+
     }
 
     public int getHealth()
