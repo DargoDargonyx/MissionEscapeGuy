@@ -345,6 +345,10 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3686582259
       objectReference: {fileID: 0}
+    - target: {fileID: 5686498264435364988, guid: db94649abe37a8a44868055a33b021c5, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6865806017872569853, guid: db94649abe37a8a44868055a33b021c5, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1268606132

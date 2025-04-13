@@ -24,11 +24,6 @@ public class TurretScript : NetworkBehaviour
 
     void Start()
     {
-        if (MasterController.isHost)
-        {
-            gameObject.GetComponent<NetworkObject>().Spawn();
-        }
-
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
         bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
@@ -39,16 +34,13 @@ public class TurretScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MasterController.isHost)
-        {
-            checkLevelConstraints();
-            findClosestEnemy();
-            checkDirection();
-            fire();
+        turretTime -= Time.deltaTime;
+        time += Time.deltaTime;
 
-            time += Time.deltaTime;
-            turretTime -= Time.deltaTime;
-        }
+        checkLevelConstraints();
+        findClosestEnemy();
+        checkDirection();
+        fire();
     }
 
     private void checkLevelConstraints()
@@ -114,6 +106,8 @@ public class TurretScript : NetworkBehaviour
             nextTime += 1f;
             Bullet clone = Instantiate(bullet, launchOffset.position, launchOffset.rotation);
             clone.setEnemyStatus(false);
+            nextTime = time + 1f;
+            Instantiate(bullet, launchOffset.position, launchOffset.rotation);
         }
     }
 
