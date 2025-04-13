@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class TurretScript : NetworkBehaviour
+public class TurretScript : MonoBehaviour
 {
     private Rigidbody2D body;
     private SpriteRenderer spriteRenderer;

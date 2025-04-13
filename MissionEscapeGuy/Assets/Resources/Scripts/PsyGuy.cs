@@ -3,14 +3,14 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 
-public class PsyGuy : NetworkBehaviour
+public class PsyGuy : MonoBehaviour
 {
     private Rigidbody2D body;
     private Animator animator;
     private Bullet bullet;
     private TheGuy closestPlayer;
     private const float MAX_HEALTH = 6f;
-    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
+    private float health = MAX_HEALTH;
     private float moveSpeed = 2f;
     private float attackRange = 10f;
     private Vector2 targetPosition = new(0, 0);
@@ -24,17 +24,14 @@ public class PsyGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (MasterController.isHost)
-        {
-            // animator = animator == null ? GetComponent<Animator>() : animator;
-            body = body == null ? GetComponent<Rigidbody2D>() : body;
-            bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
+        // animator = animator == null ? GetComponent<Animator>() : animator;
+        body = body == null ? GetComponent<Rigidbody2D>() : body;
+        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
 
-            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
 
-            currentPosition = transform.position;
-            time = nextTime = Time.time;
-        }
+        currentPosition = transform.position;
+        time = nextTime = Time.time;
 
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
     }
@@ -42,34 +39,31 @@ public class PsyGuy : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MasterController.isHost)
+        checkDeath();
+
+        time += Time.deltaTime;
+        currentPosition = transform.position;
+        closestPlayer = findClosestPlayer();
+
+        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
         {
-            checkDeath();
-
-            time += Time.deltaTime;
-            currentPosition = transform.position;
-            closestPlayer = findClosestPlayer();
-
-            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) >= attackRange)
+            targetPortal();
+            if (time >= nextTime)
             {
-                targetPortal();
-                if (time >= nextTime)
-                {
-                    nextTime = time + 2f;
-                    shoot();
-                }
-            }
-            else
-            {
-                targetPlayer(closestPlayer);
-                if (time >= nextTime)
-                {
-                    nextTime = time + 2f;
-                    shoot();
-                }
+                nextTime = time + 2f;
+                shoot();
             }
         }
-        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+        else
+        {
+            targetPlayer(closestPlayer);
+            if (time >= nextTime)
+            {
+                nextTime = time + 2f;
+                shoot();
+            }
+        }
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
     }
 
     private void targetPlayer(TheGuy closestPlayer)
@@ -119,20 +113,20 @@ public class PsyGuy : NetworkBehaviour
 
     public void takeDamage(float damage)
     {
-        if (health.Value > damage)
+        if (health > damage)
         {
-            health.Value -= damage;
-            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+            health -= damage;
+            healthBar.UpdateHealthBar(health, MAX_HEALTH);
         }
         else
         {
-            health.Value = 0f;
+            health = 0f;
         }
     }
 
     private void checkDeath()
     {
-        if (health.Value == 0)
+        if (health == 0)
         {
             healthBar.UpdateHealthBar(0.000001f, MAX_HEALTH);
             Destroy(gameObject, 0.25f);

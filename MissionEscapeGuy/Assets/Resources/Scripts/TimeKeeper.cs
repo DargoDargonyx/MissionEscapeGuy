@@ -3,7 +3,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class TimeKeeper : NetworkBehaviour
+public class TimeKeeper : MonoBehaviour
 {
     public float time;
     TextMeshProUGUI text;

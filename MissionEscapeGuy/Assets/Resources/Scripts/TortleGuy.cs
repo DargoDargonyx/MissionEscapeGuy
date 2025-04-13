@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TortleGuy : NetworkBehaviour
+public class TortleGuy : MonoBehaviour
 {
     public float moveSpeed = 4f;
     private Rigidbody2D body;
@@ -13,7 +13,7 @@ public class TortleGuy : NetworkBehaviour
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
     private const float MAX_HEALTH = 4f; 
-    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
+    private float health = MAX_HEALTH;
     private float time;
     private float nextTime;
     private float attackRange = 10f;
@@ -23,22 +23,17 @@ public class TortleGuy : NetworkBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        if (MasterController.isHost)
-        {
-            gameObject.GetComponent<NetworkObject>().Spawn();
-            
-            body = body == null ? GetComponent<Rigidbody2D>() : body;
-            animator = animator == null ? GetComponent<Animator>() : animator;
+{
+        body = body == null ? GetComponent<Rigidbody2D>() : body;
+        animator = animator == null ? GetComponent<Animator>() : animator;
 
-            currentPosition = transform.position;
+        currentPosition = transform.position;
 
-            targetPosition = new(0, 0); // World Origin, where spaceship is located
-            targetDirection = currentPosition - targetPosition;
-            
-            time = Time.time;
-            nextTime = time;
-        }
+        targetPosition = new(0, 0); // World Origin, where spaceship is located
+        targetDirection = currentPosition - targetPosition;
+        
+        time = Time.time;
+        nextTime = time;
 
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
     }
@@ -47,29 +42,27 @@ public class TortleGuy : NetworkBehaviour
     void Update()
     {
         checkMovement();
-        if (MasterController.isHost) {
-            checkDeath();
+        checkDeath();
 
-            time += Time.deltaTime;
+        time += Time.deltaTime;
 
-            currentPosition = transform.position;
+        currentPosition = transform.position;
 
-            closestPlayer = findNearestPlayer();
-            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
-            {
-                targetPlayer(closestPlayer);
-            }
-            else
-            {
-                targetPortal();
-            }
+        closestPlayer = findNearestPlayer();
+        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
+        {
+            targetPlayer(closestPlayer);
         }
-        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+        else
+        {
+            targetPortal();
+        }
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             time = Time.time;
             nextTime = time + 1f;
@@ -79,7 +72,7 @@ public class TortleGuy : NetworkBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
         animator.SetBool("isAttacking", false);
-        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
         animator.SetBool("isAttacking", true);
             nextTime += 1f;
@@ -138,23 +131,20 @@ public class TortleGuy : NetworkBehaviour
 
     public void takeDamage(float damage)
     {
-        if (MasterController.isHost)
+        if (health > damage)
         {
-            if (health.Value > damage)
-            {
-                health.Value -= damage;
-            }
-            else
-            {
-                health.Value = 0;
-            }
-            Debug.Log(health);
+            health -= damage;
         }
+        else
+        {
+            health = 0;
+        }
+        Debug.Log(health);
     }
 
     private void checkDeath()
     {
-        if (health.Value == 0)
+        if (health == 0)
         {
             scrollBar.handleRect.gameObject.SetActive(false);
             Destroy(gameObject, 0.25f);

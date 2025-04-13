@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.Collections;
 
-public class TheGuy : NetworkBehaviour
+public class TheGuy : MonoBehaviour
 {
     public static TheGuy Instance { get; private set; }
     private Rigidbody2D body;
@@ -27,12 +27,12 @@ public class TheGuy : NetworkBehaviour
     private float regenTimer = 10;
     private const int MAX_HEALTH = 20;
     private const int MAX_SHIELD = 10;
-    private NetworkVariable<int> health = new NetworkVariable<int>(MAX_HEALTH);
-    private NetworkVariable<int> shield = new NetworkVariable<int>(MAX_SHIELD);
-    public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
-    public NetworkVariable<FixedString64Bytes> username = new NetworkVariable<FixedString64Bytes>();
-    public NetworkVariable<int> colorSel = new NetworkVariable<int>(0);
-    public NetworkVariable<bool> isReady = new NetworkVariable<bool>(false);
+    private int health = MAX_HEALTH;
+    private int shield = MAX_SHIELD;
+    private float moveX;
+    private float moveY;
+    Quaternion targetRotation;
+    public Camera camera;
     [SerializeField] private Transform launchOffset;
     [SerializeField] private Sprite purpleSprite;
     [SerializeField] private Sprite blueSprite;
@@ -45,7 +45,6 @@ public class TheGuy : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         animator = animator == null ? GetComponent<Animator>() : animator;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
@@ -61,20 +60,36 @@ public class TheGuy : NetworkBehaviour
             setShield(Math.Clamp(getShield() + 1, -1, MAX_SHIELD));
             regenTimer = 10;
         }
-        if (health.Value == 0)
+        if (health == 0)
             Destroy(gameObject);
+
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveY = Input.GetAxisRaw("Vertical");
+
+        Vector3 newCameraPos = new Vector3(transform.position.x, transform.position.y, -10f);
+        camera.transform.position = newCameraPos;
+
+        checkDirection();
+        Move(moveX, moveY, targetRotation);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Fire();
+        }
+    }
+
+    private void checkDirection()
+    {
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mouseWorldPosition - (Vector2) transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
     }
 
     public void Move(float moveX, float moveY, Quaternion targetRotation)
     {
-        SubmitPositionRequestServerRpc(moveX, moveY, targetRotation);
-    }
-
-    [Rpc(SendTo.Server)]
-    public void SubmitPositionRequestServerRpc(float cX, float cY, Quaternion cRot, RpcParams rpcParams = default)
-    {
-        moveDirection = new Vector2(cX, cY).normalized;
-        transform.rotation = Quaternion.Slerp(transform.rotation, cRot, rotationSpeed * Time.deltaTime);
+        moveDirection = new Vector2(moveX, moveY).normalized;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -88,31 +103,10 @@ public class TheGuy : NetworkBehaviour
         body.linearVelocity = new Vector2(moveDirection.x * moveSpeed * speedMod, moveDirection.y * moveSpeed * speedMod);
     }
 
-    [Rpc(SendTo.Server)]
-    public void fireRpc()
+    public void Fire()
     {
         Bullet clone = Instantiate(bullet, launchOffset.position, transform.rotation);
         clone.setEnemyStatus(false);
-    }
-
-    [Rpc(SendTo.Server)]
-    public void playerCosmeticRpc(string user, int colSel)
-    {
-        username.Value = user;
-        initializeColorRpc(colSel);
-    }
-
-    [Rpc(SendTo.Everyone)]
-    private void initializeColorRpc(int colSel)
-    {
-        switch (colSel)
-        {
-            case 1: spriteRenderer.sprite = purpleSprite; break;
-            case 2: spriteRenderer.sprite = blueSprite; break;
-            case 3: spriteRenderer.sprite = redSprite; break;
-            case 4: spriteRenderer.sprite = greenSprite; break;
-            case 5: spriteRenderer.sprite = orangeSprite; break;
-        }
     }
 
     public Vector2 getPosition()
@@ -131,17 +125,17 @@ public class TheGuy : NetworkBehaviour
         Debug.Log("Initial Shield: " + getShield());
         // difference will be negative if damage is more than
         // the amount of shields the player has.
-        int difference = shield.Value - damage;
+        int difference = shield - damage;
 
         if (difference < 0)
         {
             difference *= -1;
             setShield(0);
-            setHealth(health.Value - difference);
+            setHealth(health - difference);
         }
         else
         {
-            setShield(shield.Value - damage);
+            setShield(shield - damage);
         }
         Debug.Log("New Health: " + getHealth());
         Debug.Log("New Shield: " + getShield());
@@ -149,23 +143,23 @@ public class TheGuy : NetworkBehaviour
 
     public int getHealth()
     {
-        return health.Value;
+        return health;
     }
 
     public void setHealth(int health)
     {
         if (health < 0) return;
-        this.health.Value = health;
+        this.health = health;
     }
 
     public int getShield()
     {
-        return shield.Value;
+        return shield;
     }
 
     public void setShield(int shield)
     {
         if (shield < 0) return;
-        this.shield.Value = shield;
+        this.shield = shield;
     }
 }

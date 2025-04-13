@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BigBack : NetworkBehaviour
+public class BigBack : MonoBehaviour
 {
     public float moveSpeed = 1f;
     private Rigidbody2D body;
@@ -11,7 +11,7 @@ public class BigBack : NetworkBehaviour
     private Vector2 targetDirection;
     private TheGuy closestPlayer;
     private const float MAX_HEALTH = 10f;
-    private NetworkVariable<float> health = new NetworkVariable<float>(MAX_HEALTH);
+    private float health = MAX_HEALTH;
     private float time;
     private float nextTime;
     private float attackRange;
@@ -23,22 +23,19 @@ public class BigBack : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (MasterController.isHost)
-        {
-            gameObject.GetComponent<NetworkObject>().Spawn();
+        gameObject.GetComponent<NetworkObject>().Spawn();
 
-            body = body == null ? GetComponent<Rigidbody2D>() : body;
+        body = body == null ? GetComponent<Rigidbody2D>() : body;
 
-            currentPosition = transform.position;
-            attackRange = 10f;
-            attackDamage = 4;
+        currentPosition = transform.position;
+        attackRange = 10f;
+        attackDamage = 4;
 
-            targetPosition = new(0, 0); // World Origin, where spaceship is located
-            targetDirection = currentPosition - targetPosition;
-            
-            time = Time.time;
-            nextTime = time;
-        }
+        targetPosition = new(0, 0); // World Origin, where spaceship is located
+        targetDirection = currentPosition - targetPosition;
+        
+        time = Time.time;
+        nextTime = time;
 
         healthBar = healthBar == null ? GetComponentInChildren<EnemyHealthBarScript>() : healthBar;
     }
@@ -46,30 +43,27 @@ public class BigBack : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MasterController.isHost)
+        checkDeath();
+        time += Time.deltaTime;
+
+        currentPosition = transform.position;
+
+        closestPlayer = findNearestPlayer();
+        if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
         {
-            checkDeath();
-            time += Time.deltaTime;
-
-            currentPosition = transform.position;
-
-            closestPlayer = findNearestPlayer();
-            if (Vector2.Distance(currentPosition, closestPlayer.transform.position) <= attackRange)
-            {
-                targetPlayer(closestPlayer);
-            }
-            else
-            {
-                targetPortal();
-            }
+            targetPlayer(closestPlayer);
+        }
+        else
+        {
+            targetPortal();
         }
 
-        healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+        healthBar.UpdateHealthBar(health, MAX_HEALTH);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             time = nextTime;
             nextTime += 2f;
@@ -78,7 +72,7 @@ public class BigBack : NetworkBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (MasterController.isHost && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Spaceship")) && time >= nextTime)
         {
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             time = nextTime;
@@ -132,7 +126,7 @@ public class BigBack : NetworkBehaviour
 
     private void checkDeath()
     {
-        if (health.Value <= 0)
+        if (health <= 0)
         {
             scrollBar.handleRect.gameObject.SetActive(false);
             Destroy(gameObject, 0.25f);
@@ -143,14 +137,14 @@ public class BigBack : NetworkBehaviour
 
     public void takeDamage(float damage)
     {
-        if (health.Value > damage)
+        if (health > damage)
         {
-            health.Value -= damage;
-            healthBar.UpdateHealthBar(health.Value, MAX_HEALTH);
+            health -= damage;
+            healthBar.UpdateHealthBar(health, MAX_HEALTH);
         }
         else
         {
-            health.Value = 0;
+            health = 0;
         }
     }
 }

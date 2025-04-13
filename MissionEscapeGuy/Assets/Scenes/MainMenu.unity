@@ -608,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7217049fd5060f0937d7adb0029d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turtle: {fileID: 4414323613854955417, guid: 594b518db46337d4ea78c862683b3637, type: 3}
 --- !u!4 &1057423358
 Transform:
   m_ObjectHideFlags: 0
