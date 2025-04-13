@@ -23,6 +23,7 @@ public class BigBack : MonoBehaviour
         health = 10;
         currentPosition = transform.position;
         attackRange = 10f;
+        attackDamage = 4;
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
@@ -54,7 +55,7 @@ public class BigBack : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             time = nextTime;
-            nextTime += 1f;
+            nextTime += 2f;
         }
     }
 
@@ -64,7 +65,7 @@ public class BigBack : MonoBehaviour
         {
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             time = nextTime;
-            nextTime += 1f;
+            nextTime += 2f;
             otherObject.takeDamage(attackDamage);
         }
     }
@@ -74,7 +75,7 @@ public class BigBack : MonoBehaviour
         Vector2 direction = (targetPosition - currentPosition).normalized;
         body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle + 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
@@ -83,7 +84,7 @@ public class BigBack : MonoBehaviour
         Vector2 direction = (Vector2) closestPlayer.transform.position - currentPosition;
         body.linearVelocity = direction.normalized * moveSpeed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle + 90));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 128 * Time.deltaTime);
     }
 
