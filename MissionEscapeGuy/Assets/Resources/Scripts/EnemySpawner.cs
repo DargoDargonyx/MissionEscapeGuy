@@ -1,19 +1,26 @@
+using System;
+using Unity.Netcode;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+    
     [SerializeField] private GameObject enemyToSpawn;
     [SerializeField] private float minSpawnTime = 2f;
     [SerializeField] private float maxSpawnTime = 5f;
-    public Tile rock;
+    [SerializeField] int maxSpawnLimit = 20;
     private Tilemap tilemap;
     private BoxCollider2D collider;
     private float timeUntilSpawn;
+    public static int numEnemies = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        maxSpawnLimit = 20;
         collider = collider == null ? GetComponent<BoxCollider2D>() : collider;
         setTimeUntilSpawn();
         tilemap = FindFirstObjectByType<Tilemap>();
@@ -24,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     {
         timeUntilSpawn -= Time.deltaTime;
 
-        if (timeUntilSpawn <= 0)
+        if (timeUntilSpawn <= 0 && numEnemies <= maxSpawnLimit)
         {
             spawnEnemy();
             setTimeUntilSpawn();
@@ -37,6 +44,7 @@ public class EnemySpawner : MonoBehaviour
         if (!pointIsRock(randomEdgePosition))
         {
             Instantiate(enemyToSpawn, randomEdgePosition, Quaternion.identity);
+            numEnemies += 1;
             Debug.Log("Turtle Spawned!");
         }
         else
@@ -64,6 +72,6 @@ public class EnemySpawner : MonoBehaviour
         Vector3Int newPoint = tilemap.WorldToCell(point);
         Tile spawnTile = tilemap.GetTile<Tile>(newPoint);
 
-        return (spawnTile.name == "Tile_3");
+        return spawnTile.name == "Tile_3";
     }
 }
