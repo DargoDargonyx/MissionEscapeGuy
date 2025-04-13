@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 720720778}
   - component: {fileID: 720720777}
   - component: {fileID: 720720780}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpaceShip
   m_TagString: Spaceship
   m_Icon: {fileID: 0}
