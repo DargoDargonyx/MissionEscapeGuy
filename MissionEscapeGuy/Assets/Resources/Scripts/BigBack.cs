@@ -61,7 +61,7 @@ public class BigBack : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             time = nextTime;
