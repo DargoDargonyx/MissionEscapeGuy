@@ -28,6 +28,7 @@ public class MasterController : MonoBehaviour
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
+                    Debug.Log(NetworkManager.Singleton.ConnectedHostname);
                     Instantiate(turtle);
                 }
                 else
