@@ -227,7 +227,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 347831865}
         m_TargetAssemblyTypeName: HelloWorldManager, Assembly-CSharp
-        m_MethodName: OnHostButtonClicked
+        m_MethodName: OnPlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -341,8 +341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hostButton: {fileID: 263429125}
-  joinButton: {fileID: 0}
-  joinIPField: {fileID: 0}
 --- !u!1 &591298248
 GameObject:
   m_ObjectHideFlags: 0
