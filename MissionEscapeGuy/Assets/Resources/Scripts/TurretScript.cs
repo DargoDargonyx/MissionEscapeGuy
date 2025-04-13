@@ -71,12 +71,13 @@ public class TurretScript : MonoBehaviour
 
     private void checkDirection()
     {
-        Vector2 direction = closestEnemy.transform.position - transform.position;
+        if (closestEnemy != null) {
+            Vector2 direction = closestEnemy.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
     private void findClosestEnemy()
@@ -101,7 +102,7 @@ public class TurretScript : MonoBehaviour
     {
         //Quaternion newRot = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f));
 
-        if (time >= nextTime)
+        if (time >= nextTime && closestEnemy != null)
         {
             nextTime += 1f;
             Bullet clone = Instantiate(bullet, launchOffset.position, launchOffset.rotation);
