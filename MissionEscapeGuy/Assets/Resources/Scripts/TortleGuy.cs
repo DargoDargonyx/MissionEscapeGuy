@@ -24,7 +24,7 @@ public class TortleGuy : MonoBehaviour
 
         health = 4;
         currentPosition = transform.position;
-        attackRange = 5f;
+        attackRange = 10f;
 
         targetPosition = new(0, 0); // World Origin, where spaceship is located
         targetDirection = currentPosition - targetPosition;
