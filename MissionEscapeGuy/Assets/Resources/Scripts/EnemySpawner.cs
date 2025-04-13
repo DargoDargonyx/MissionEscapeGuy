@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     {
         collider = collider == null ? GetComponent<BoxCollider2D>() : collider;
         setTimeUntilSpawn();
+        tilemap = FindFirstObjectByType<Tilemap>();
     }
 
     // Update is called once per frame
@@ -63,6 +64,6 @@ public class EnemySpawner : MonoBehaviour
         Vector3Int newPoint = tilemap.WorldToCell(point);
         Tile spawnTile = tilemap.GetTile<Tile>(newPoint);
 
-        return (spawnTile.name == "Tile_0");
+        return (spawnTile.name == "Tile_3");
     }
 }
