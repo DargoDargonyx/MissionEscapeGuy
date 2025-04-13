@@ -68,7 +68,7 @@ public class Bullet : NetworkBehaviour
         {
             GameObject collisionObject = collision.gameObject;
             string tag = collisionObject.tag;
-            
+
             switch (tag)
             {
                 case "TortleGuy":
@@ -82,6 +82,10 @@ public class Bullet : NetworkBehaviour
                 case "BigBack":
                     BigBack bigBack = collisionObject.GetComponent<BigBack>();
                     bigBack.takeDamage(2f);
+                    break;
+                case "Player":
+                    TheGuy player = collisionObject.GetComponent<TheGuy>();
+                    player.takeDamage(2);
                     break;
                 default:
                     break;
