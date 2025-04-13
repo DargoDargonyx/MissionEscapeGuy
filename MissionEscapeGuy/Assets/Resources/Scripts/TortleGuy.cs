@@ -65,6 +65,7 @@ public class TortleGuy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && time >= nextTime)
         {
+            nextTime += 1f;
             TheGuy otherObject = collision.gameObject.GetComponent<TheGuy>();
             otherObject.takeDamage(1);
         }
