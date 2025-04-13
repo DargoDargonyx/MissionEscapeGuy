@@ -19,7 +19,7 @@ public class PsyGuy : NetworkBehaviour
     private float nextTime;
 
     [SerializeField] private EnemyHealthBarScript healthBar;
-    [SerializeField] private Vector2 launchOffset = Vector2.zero;
+    [SerializeField] private Transform launchOffset;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -103,7 +103,7 @@ public class PsyGuy : NetworkBehaviour
 
     private void shoot()
     {
-        Instantiate(bullet, transform.position, transform.rotation);
+        Instantiate(bullet, launchOffset.position, launchOffset.rotation);
     }
 
     public void takeDamage(float damage)
