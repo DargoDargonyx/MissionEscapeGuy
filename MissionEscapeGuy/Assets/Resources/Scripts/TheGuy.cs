@@ -11,7 +11,7 @@ public class TheGuy : NetworkBehaviour
     private Rigidbody2D body;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    //private Bullet bullet;
+    private Bullet bullet;
     private Vector2 moveDirection;
     private float moveSpeed = 8;
     private float rotationSpeed = 128;
@@ -41,12 +41,19 @@ public class TheGuy : NetworkBehaviour
         body = body == null ? GetComponent<Rigidbody2D>() : body;
         animator = animator == null ? GetComponent<Animator>() : animator;
         spriteRenderer = spriteRenderer == null ? GetComponent<SpriteRenderer>() : spriteRenderer;
+        bullet = bullet == null ? Resources.Load<Bullet>("Prefabs/Bullet") : bullet;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (health == 0)
+            Destroy(gameObject);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            fire();
+        }
     }
 
     public void Move(float moveX, float moveY, Quaternion targetRotation)
@@ -74,7 +81,9 @@ public class TheGuy : NetworkBehaviour
 
     private void fire()
     {
-        
+        Bullet clone;
+        clone = Instantiate<Bullet>(bullet, getPosition(), new Quaternion());
+        clone.setDirection(getRotation());
     }
 
     private void initializeColor()
@@ -84,12 +93,12 @@ public class TheGuy : NetworkBehaviour
 
     public Vector2 getPosition()
     {
-        return transform.position;
+        return new Vector2(transform.position.x, transform.position.y);
     }
 
-    public Quaternion getRotation()
+    public Vector2 getRotation()
     {
-        return transform.rotation;
+        return new Vector2(transform.rotation.x, transform.rotation.y);
     }
 
     public void takeDamage(int damage)
