@@ -30,7 +30,13 @@ public class WorldGenerator : MonoBehaviour
                 double nx = (double) x / 255 + 0.5;
                 double ny = (double) y / 255 + 0.5;
 
-                double noise = PerlinNoise.Noise(nx * 10, ny * 10);
+                double noise = (PerlinNoise.Noise(nx * 10, ny * 10) + 0.25 * PerlinNoise.Noise(nx * 80, ny * 80)) / 1.25;
+
+                // Map control zones
+                double dist = Math.Sqrt(Math.Pow(nx, 2) + Math.Pow(ny, 2));
+                double diff = noise - 0.5;
+                double adj = diff / (dist + 1);
+                noise -= adj;
 
                 if (noise < 0.2) 
                 {
